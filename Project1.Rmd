@@ -1,6 +1,6 @@
 ---
 author: "Austin Lio, Prithvi Namburi"
-title: "Your descriptive title"
+title: "Your descriptive title "
 date: "2026-10-05"
 output:
   pdf_document:

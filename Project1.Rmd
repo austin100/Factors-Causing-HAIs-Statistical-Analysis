@@ -8,7 +8,7 @@ output:
 ---
 ```{r echo=FALSE, include=FALSE, message=FALSE}
 # all library load statements here
-
+install.packages("usethis")
 r.version <- "4.3.2"
 seed.val <- 123456
 ```

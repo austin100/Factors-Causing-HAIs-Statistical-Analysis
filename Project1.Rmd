@@ -8,9 +8,19 @@ output:
 ---
 ```{r echo=FALSE, include=FALSE, message=FALSE}
 # all library load statements here
-install.packages("usethis")
+# install.packages("usethis")
 r.version <- "4.3.2"
 seed.val <- 123456
+
+library(caret) # for training and cross validation
+library(knitr) # for kable table rendering
+library (tidyverse) # tibble
+library(ggplot2) # plotting
+library(car) # for VIF
+# two libraries for applying robust std errors:
+library(lmtest) # for Breusch-Pagan test
+library(sandwich)
+library(modelsummary)
 ```
 
 Notes: This is an Rmd file template for the project. You may edit the headings below as fits your analysis. You may add headings and sub-headings as well. Please read the requirements for project 1 milestone 1 and for the final submission.
@@ -80,7 +90,24 @@ hist(infection.df$InfctRsk, freq = FALSE, # freq = FALSE for density scale on y-
      ylab = "Density")
 lines(density(infection.df$InfctRsk), col = "blue", lwd = 2)
 ```
+The descriptive statistics for infection risk are shown below.
 ```{R}
+
+# table of descriptive stats for the inflection risk
+statistic <- c("Min", "2nd Quant. (25%)", "Mean","Median", "4th Quant. (75%)", "Max", "StdDev")
+data<-data.df$performance_index
+quantiles<-quantile(data)
+# extracting the number with as.numeric because quantiles[2] is a named number.
+second.quant<-as.numeric(quantiles[2])
+fourth.quant<-as.numeric(quantiles[4])
+mn<-min(data)
+mx<-max(data)
+avg<-round(mean(data), 2)
+md<-median(data)
+std<-round(sd(data), 2)
+value <- c(mn,second.quant,avg,md,fourth.quant,mx,std)
+st.tbl <- cbind(statistic, value)
+kable(st.tbl, caption="Infection Risk index descriptive statistics")
 
 ```
 

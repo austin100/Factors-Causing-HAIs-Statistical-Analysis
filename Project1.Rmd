@@ -17,10 +17,17 @@ Notes: This is an Rmd file template for the project. You may edit the headings b
 
 For the Overview: A brief intro to the domain to give context and your main question go in this space. You don't need a heading for the overview (unless you want one).
 
+# Overview
+
+Healthcare associated infections (HAIs) are a major problem in United States hospital systems. HAIs is linked to many factors, such as the patient's age or stay at a hospital, as well as the the hospital's infrastructure (e.g. number of available beds at the hospital) and staffing. Knowing how these factors affect patients is key for hospital leaders and institutions to implement policies in slowing down HCIs and better patient care. 
+
+The main research question of this analysis is how do both patient and hospital factors contribute to a patient's infection risk?
+
 # Data Description and Processing
-
-
-
+```{R}
+# Read the dataset and set it to a dataframe 
+infection.df = read.csv("dataset2.csv")
+```
 # Data Exploration
 
 

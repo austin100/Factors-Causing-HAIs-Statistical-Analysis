@@ -42,9 +42,9 @@ Xray (numeric): Ratio of number of X-rays performed to number of patients withou
 
 Beds (numeric): Average number of beds in hospital during study period.
 
-MedSchool (factor): Hospital has an associated medical school: 1 =Yes, 2=No
+MedSchool (factor): Hospital has an associated medical school: 1 =Yes, 2=No --> We decided to factor this variable as there are different "groups" or levels for medical school (1 or 2). 
 
-Region (factor): Geographic region, where: 1 =NE, 2=NC, 3=S, 4=W 
+Region (factor): Geographic region, where: 1 =NE, 2=NC, 3=S, 4=W --> We decided to factor this variable as there are different "groups" of regions. 
 
 Census (numeric): Average number of patients in hospital per day during study period.
 

@@ -29,24 +29,27 @@ The dataset contains data collected from hospitals in the United States, with ea
 
 Variables in our dataset are:
 
-InfctRsk: Average estimated probability of acquiring infection in hospital (percent)
-Stay: average length of patient stay (days)
-Age: average patient age (years)
-Culture: Ratio of number of cultures performed to number of patients without signs or
+InfctRsk (numeric): Average estimated probability of acquiring infection in hospital (percent)
+Stay (numeric): average length of patient stay (days)
+Age (numeric): average patient age (years)
+Culture (numeric): Ratio of number of cultures performed to number of patients without signs or
 symptoms of hospital-acquired infection, times 100.
-Xray: Ratio of number of X-rays performed to number of patients without signs or symptoms of
+Xray (numeric): Ratio of number of X-rays performed to number of patients without signs or symptoms of
 pneumonia, times 100.
-Beds: Average number of beds in hospital during study period.
-MedSchool: Hospital has an associated medical school: 1 =Yes, 2=No
-Region: Geographic region, where: 1 =NE, 2=NC, 3=S, 4=W
-Census: Average number of patients in hospital per day during study period.
-Nurses: Average number of full-time equivalent registered and licensed practical nurses during
+Beds (numeric): Average number of beds in hospital during study period.
+MedSchool (factor): Hospital has an associated medical school: 1 =Yes, 2=No
+Region (factor): Geographic region, where: 1 =NE, 2=NC, 3=S, 4=W 
+Census (numeric): Average number of patients in hospital per day during study period.
+Nurses (numeric): Average number of full-time equivalent registered and licensed practical nurses during
 study period (number full-time plus one half the number part time).
-Facilities: Percent of 35 potential facilities and services that are provided by the hospital.
+Facilities (numeric): Percent of 35 potential facilities and services that are provided by the hospital.
 
 ```{R}
 # Read the dataset and set it to a dataframe 
 infection.df = read.csv("dataset2.csv")
+
+infection.df$MedSchool = factor(infection.df$MedSchool)
+infection.df$Region = factor(infection.df$Region)
 ```
 # Data Exploration
 

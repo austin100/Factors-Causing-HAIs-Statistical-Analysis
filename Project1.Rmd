@@ -70,6 +70,19 @@ infection.df$Region = factor(infection.df$Region)
 ```
 # Data Exploration
 
+In figure 1, the distribution of the outcome variable, infection risk (named in our dataset as InfctRsk), shows an approximately normal distribution, with only one peak. The density curve fits the data pretty well. 
+
+
+```{R}
+hist(infection.df$InfctRsk, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "", # turn off the title as using the fig.cap
+     xlab = "Index Value",
+     ylab = "Density")
+lines(density(infection.df$InfctRsk), col = "blue", lwd = 2)
+```
+```{R}
+
+```
 
 # Modeling 
 

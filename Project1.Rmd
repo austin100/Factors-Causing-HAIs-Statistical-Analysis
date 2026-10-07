@@ -27,8 +27,9 @@ The main research question of this analysis is how do both patient and hospital 
 
 The dataset contains data collected from hospitals in the United States, with each row representing one hospital.
 
-Variables in our dataset are:
+We categorized the variables in the data set in terms of "patient factors" and "hospital factors":
 
+Patient factors:
 InfctRsk (numeric): Average estimated probability of acquiring infection in hospital (percent)
 
 Stay (numeric): average length of patient stay (days)
@@ -40,6 +41,7 @@ symptoms of hospital-acquired infection, times 100.
 
 Xray (numeric): Ratio of number of X-rays performed to number of patients without signs or symptoms of pneumonia, times 100.
 
+Hospital factors:
 Beds (numeric): Average number of beds in hospital during study period.
 
 MedSchool (factor): Hospital has an associated medical school: 1 =Yes, 2=No --> We decided to factor this variable as there are different "groups" or levels for medical school (1 or 2). 

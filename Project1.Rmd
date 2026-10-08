@@ -90,7 +90,8 @@ hist(infection.df$InfctRsk, freq = FALSE, # freq = FALSE for density scale on y-
      ylab = "Density")
 lines(density(infection.df$InfctRsk), col = "blue", lwd = 2)
 ```
-The descriptive statistics for infection risk are shown below.
+The descriptive statistics for infection risk are shown below. We can see that the minimum infection risk is 11%, and the maximum infection risk is 100%. The average inflection risk is 55.39%.
+
 ```{R}
 
 # table of descriptive stats for the inflection risk
@@ -107,7 +108,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,second.quant,avg,md,fourth.quant,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Infection Risk index descriptive statistics")
+kable(st.tbl, caption="Infection Risk Descriptive Statistics")
 
 ```
 

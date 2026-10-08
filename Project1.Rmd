@@ -80,7 +80,7 @@ infection.df$Region = factor(infection.df$Region)
 ```
 # Data Exploration
 
-In figure 1, the distribution of the outcome variable, infection risk (named in our dataset as InfctRsk), shows an approximately normal distribution, with only one peak. The density curve fits the data pretty well. 
+In figure 1, the distribution of the outcome variable, infection risk (named in our dataset as InfctRsk), shows an approximately normal distribution, with only one peak. We can also support that the distribution is normal as the number of observations is greater than 50 (113 > 50). The density curve fits the data pretty well. 
 
 
 ```{R}

@@ -37,19 +37,22 @@ The main research question of this analysis is how do both patient and hospital 
 
 The dataset contains data collected from hospitals in the United States, with each row representing one hospital.
 
-We categorized the variables in the data set in terms of "patient factors" and "hospital factors":
+We categorized the variables in the data set in terms of "Patient Factors" and "Hospital Factors". "Patient Factors" are variables that reference information about a patient, such as how long they stay at the hospital, and their age. "Hospital Factors" are variables associated with the hospital, such as the number of beds the hospital has and the number of nurses for staff. Additionally, we placed "Culture" and "Xray" variables under the group "Hospital Factors", as these are tests conducted by hospitals on patients.  
 
-Patient factors:
+Patient Factors:
+
 Stay (numeric): average length of patient stay (days)
 
 Age (numeric): average patient age (years)
 
-Culture (numeric): Ratio of number of cultures performed to number of patients without signs or
+
+Hospital Factors:
+
+Culture (numeric): Ratio of number of cultures (testing a patient's sample for infection-causing microorganisms) performed to number of patients without signs or
 symptoms of hospital-acquired infection, times 100.
 
-Xray (numeric): Ratio of number of X-rays performed to number of patients without signs or symptoms of pneumonia, times 100.
+Xray (numeric): Ratio of number of X-rays (taking an image of the body, particularly the chest, to look for conditions such as pneumonia) performed to number of patients without signs or symptoms of pneumonia, times 100.
 
-Hospital factors:
 Beds (numeric): Average number of beds in hospital during study period.
 
 MedSchool (factor): Hospital has an associated medical school: 1 =Yes, 2=No --> We decided to factor this variable as there are different "groups" or levels for medical school (1 or 2). 
@@ -90,13 +93,13 @@ hist(infection.df$InfctRsk, freq = FALSE, # freq = FALSE for density scale on y-
      ylab = "Density")
 lines(density(infection.df$InfctRsk), col = "blue", lwd = 2)
 ```
-The descriptive statistics for infection risk are shown below. We can see that the minimum infection risk is 11%, and the maximum infection risk is 100%. The average inflection risk is 55.39%.
+The descriptive statistics for infection risk are shown below. We can see that the minimum infection risk is 1.3%, and the maximum infection risk is 7.8%. The average inflection risk is 4.355%.
 
 ```{R}
 
 # table of descriptive stats for the inflection risk
 statistic <- c("Min", "2nd Quant. (25%)", "Mean","Median", "4th Quant. (75%)", "Max", "StdDev")
-data<-data.df$performance_index
+data<-infection.df$InfctRsk
 quantiles<-quantile(data)
 # extracting the number with as.numeric because quantiles[2] is a named number.
 second.quant<-as.numeric(quantiles[2])
@@ -111,6 +114,13 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, caption="Infection Risk Descriptive Statistics")
 
 ```
+
+# Patient Factors
+
+The two "Patient" factors in our dataset are Stay and Age. We explored the distributions of these variables.
+
+
+# Hospital Factors
 
 # Modeling 
 

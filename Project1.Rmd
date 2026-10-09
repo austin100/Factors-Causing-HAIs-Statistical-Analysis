@@ -1,6 +1,6 @@
 ---
 author: "Austin Lio, Prithvi Namburi"
-title: "Your descriptive title "
+title: "The Effects of Patient and Hospital Factors on Hospital-acquired Infection Risk."
 date: "2026-10-05"
 output:
   pdf_document:
@@ -8,10 +8,13 @@ output:
 ---
 ```{r echo=FALSE, include=FALSE, message=FALSE}
 # all library load statements here
-# install.packages("usethis")
-r.version <- "4.3.2"
-seed.val <- 123456
 
+# Here is a command used to connect Git to my Github Repository
+# install.packages("usethis")
+
+
+
+# Libraries 
 library(caret) # for training and cross validation
 library(knitr) # for kable table rendering
 library (tidyverse) # tibble
@@ -21,17 +24,19 @@ library(car) # for VIF
 library(lmtest) # for Breusch-Pagan test
 library(sandwich)
 library(modelsummary)
+
+
+r.version <- "4.3.2"
+seed.val <- 123456
 ```
 
-Notes: This is an Rmd file template for the project. You may edit the headings below as fits your analysis. You may add headings and sub-headings as well. Please read the requirements for project 1 milestone 1 and for the final submission.
-
-For the Overview: A brief intro to the domain to give context and your main question go in this space. You don't need a heading for the overview (unless you want one).
 
 # Overview
 
-Healthcare associated infections (HAIs) are a major problem in United States hospital systems. HAIs is linked to many factors, such as the patient's age or stay at a hospital, as well as the the hospital's infrastructure (e.g. number of available beds at the hospital) and staffing. Knowing how these factors affect patients is key for hospital leaders and institutions to implement policies in slowing down HCIs and better patient care. 
+Hospital-acquired infections (HAIs), or healthcare-associated infections, are a major problem in United States hospital systems. HAIs are linked to many factors, such as the patient's age or stay at a hospital, as well as the the hospital's infrastructure (e.g. number of available beds at the hospital) and staffing. Knowing how these factors affect a patients risk of acquiring HCIs is important for hospital leaders and institutions to implement policies in minimizing the risk HCIs and better patient care. 
 
-The main research question of this analysis is how do both patient and hospital factors contribute to a patient's infection risk?
+The main research question of this analysis is: 
+How do patient and hospital factors affect the risk of a hospital-acquired infection in a hospital? 
 
 # Data Description and Processing
 
@@ -55,9 +60,9 @@ Xray (numeric): Ratio of number of X-rays (taking an image of the body, particul
 
 Beds (numeric): Average number of beds in hospital during study period.
 
-MedSchool (factor): Hospital has an associated medical school: 1 =Yes, 2=No --> We decided to factor this variable as there are different "groups" or levels for medical school (1 or 2). 
+MedSchool (categorical - factor): Hospital has an associated medical school: 1 =Yes, 2=No --> We decided to factor this categorical variable as there are different "groups" or levels for medical school (1 is "Yes", 2 is "No"). 
 
-Region (factor): Geographic region, where: 1 =NE, 2=NC, 3=S, 4=W --> We decided to factor this variable as there are different "groups" of regions. 
+Region (categorical - factor): Geographic region, where: 1 =NE, 2=NC, 3=S, 4=W --> We decided to factor this variable as there are different "groups" of regions. One group of hospitals are located in the Northeast, three distinct groups are located in North Central, South, and West in the United States. 
 
 Census (numeric): Average number of patients in hospital per day during study period.
 
@@ -65,7 +70,8 @@ Nurses (numeric): Average number of full-time equivalent registered and licensed
 
 Facilities (numeric): Percent of 35 potential facilities and services that are provided by the hospital.
 
-Outcome: 
+Outcome/ Dependent Variable: 
+Our dependent variable is infection risk (named InfctRsk in our dataset). 
 InfctRsk (numeric): Average estimated probability of acquiring infection in hospital (percent)
 
 The data set was checked for missing values. Of the original 116 observations, we removed 3 observations that contained missing values leaving 113 complete observations.
@@ -80,7 +86,14 @@ infection.df = na.omit(infection.df)
 
 infection.df$MedSchool = factor(infection.df$MedSchool)
 infection.df$Region = factor(infection.df$Region)
+
+
+levels(infection.df$MedSchool) = c("Yes", "No")
+
 ```
+
+We did not find or remove any outliers in our dataset. 
+
 # Data Exploration
 
 In figure 1, the distribution of the outcome variable, infection risk (named in our dataset as InfctRsk), shows an approximately normal distribution, with only one peak. We can also support that the distribution is normal as the number of observations is greater than 50 (113 > 50). The density curve fits the data pretty well. 
@@ -119,6 +132,10 @@ kable(st.tbl, caption="Infection Risk Descriptive Statistics")
 
 The two "Patient" factors in our dataset are Stay and Age. We explored the distributions of these variables.
 
+```{R}
+
+
+```
 
 # Hospital Factors
 

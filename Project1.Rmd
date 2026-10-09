@@ -44,14 +44,15 @@ The dataset contains data collected from hospitals in the United States, with ea
 
 We categorized the variables in the data set in terms of "Patient Factors" and "Hospital Factors". "Patient Factors" are variables that reference information about a patient, such as how long they stay at the hospital, and their age. "Hospital Factors" are variables associated with the hospital, such as the number of beds the hospital has and the number of nurses for staff. Additionally, we placed "Culture" and "Xray" variables under the group "Hospital Factors", as these are tests conducted by hospitals on patients.  
 
-Patient Factors:
+
+**Patient Factors**:
 
 Stay (numeric): average length of patient stay (days)
 
 Age (numeric): average patient age (years)
 
 
-Hospital Factors:
+**Hospital Factors**:
 
 Culture (numeric): Ratio of number of cultures (testing a patient's sample for infection-causing microorganisms) performed to number of patients without signs or
 symptoms of hospital-acquired infection, times 100.
@@ -132,9 +133,14 @@ kable(st.tbl, caption="Infection Risk Descriptive Statistics")
 
 The two "Patient" factors in our dataset are Stay and Age. We explored the distributions of these variables.
 
-We first start with Stay. 
+We first start with the variable Stay. 
+
 ```{R}
 
+hist(infection.df$Stay, freq = TRUE, # freq = FALSE for density scale on y-axis
+     main = "Histogram of Variable Stay", # turn off the title as using the fig.cap
+     xlab = "Days",
+     ylab = "Number of Patients")
 
 ```
 

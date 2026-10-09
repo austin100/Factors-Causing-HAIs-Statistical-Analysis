@@ -101,12 +101,12 @@ In figure 1, the distribution of the outcome variable, infection risk (named in 
 
 ```{R}
 hist(infection.df$InfctRsk, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "", # turn off the title as using the fig.cap
-     xlab = "Index Value",
+     main = "Histogram of Infection Risk Variable", # turn off the title as using the fig.cap
+     xlab = "Infection Risk (%)",
      ylab = "Density")
 lines(density(infection.df$InfctRsk), col = "blue", lwd = 2)
 ```
-The descriptive statistics for infection risk are shown below. We can see that the minimum infection risk is 1.3%, and the maximum infection risk is 7.8%. The average inflection risk is 4.355%.
+We can see that there is a minimum somewhere between 1% and 2%, and a maximum is located between 7% and 8%. To explore further, the descriptive statistics for infection risk are shown below. We can see that the minimum infection risk is 1.3%, and the maximum infection risk is 7.8%. The average inflection risk is 4.355%, which matches with the histogram as the density curve peak is between 4% and 5%.
 
 ```{R}
 
@@ -132,12 +132,15 @@ kable(st.tbl, caption="Infection Risk Descriptive Statistics")
 
 The two "Patient" factors in our dataset are Stay and Age. We explored the distributions of these variables.
 
+We first start with Stay. 
 ```{R}
 
 
 ```
 
 # Hospital Factors
+
+There are eight "Hospital" factors in our dataset: Culture, Xray, Beds, MedSchool, Region, Census, Nurses, and Facilities. We explore the distributions of each variable below.
 
 # Modeling 
 

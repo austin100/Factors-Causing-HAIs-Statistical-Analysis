@@ -133,7 +133,11 @@ kable(st.tbl, caption="Infection Risk Descriptive Statistics")
 
 The two "Patient" factors in our dataset are Stay and Age. We explored the distributions of these variables.
 
-We first start with the variable Stay. 
+We first start with the variable Stay, which denotes how long a patient stays at the hospital. 
+The histogram's distribution is skewed to the right, with a peak number of patients staying between eight and ten days. 
+We also see that there are some outliers from 16 to 20 days.
+
+From the distribution, we draw the conclusion that patients usually stay at the hospital for less than two weeks, although some patients are outside that range. Most patients may spend about eight to ten days at the hospital.
 
 ```{R}
 
@@ -143,7 +147,45 @@ hist(infection.df$Stay, freq = TRUE, # freq = FALSE for density scale on y-axis
      ylab = "Number of Patients")
 
 ```
+```{r echo=FALSE}
+# table of descriptive stats for the Age variable
+statistic <- c("Min", "Mean","Median", "Max", "StdDev")
+data<-infection.df$Stay
+mn<-min(data)
+mx<-max(data)
+avg<-round(mean(data), 2)
+md<-median(data)
+std<-round(sd(data), 2)
+value <- c(mn,avg,md,mx,std)
+st.tbl <- cbind(statistic, value)
+kable(st.tbl, caption="Variable Stay Descriptive Statistics")
+```
 
+We create another histogram for the variable Age.
+We can see that this is an approximately normal distribution, with one peak between the years fifty and fifty five. 
+The youngest patient is someone in the range of thirty-five and fourty, and the oldest patient is someone in the range of sixty-five and seventy. 
+
+```{R}
+
+hist(infection.df$Age, freq = TRUE, # freq = FALSE for density scale on y-axis
+     main = "Histogram of Variable Age", # turn off the title as using the fig.cap
+     xlab = "Age (Years)",
+     ylab = "Number of Patients")
+
+```
+```{r echo=FALSE}
+# table of descriptive stats for the Age variable
+statistic <- c("Min", "Mean","Median", "Max", "StdDev")
+data<-infection.df$Age
+mn<-min(data)
+mx<-max(data)
+avg<-round(mean(data), 2)
+md<-median(data)
+std<-round(sd(data), 2)
+value <- c(mn,avg,md,mx,std)
+st.tbl <- cbind(statistic, value)
+kable(st.tbl, caption="Variable Age Descriptive Statistics")
+```
 # Hospital Factors
 
 There are eight "Hospital" factors in our dataset: Culture, Xray, Beds, MedSchool, Region, Census, Nurses, and Facilities. We explore the distributions of each variable below.

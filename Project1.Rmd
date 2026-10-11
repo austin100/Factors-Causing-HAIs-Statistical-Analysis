@@ -202,20 +202,43 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Variable Age Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Variable Age Descriptive Statistics")
 ```
 ## Hospital Factors
 
 There are eight "Hospital" factors in our dataset: Culture, Xray, Beds, MedSchool, Region, Census, Nurses, and Facilities. We explore the distributions of each variable below.
 
-
 ### Culture
 
-
+```{r, echo=FALSE}
+# table of descriptive stats for the Culture variable
+statistic <- c("Min", "Mean","Median", "Max", "StdDev")
+data<-infection.df$Culture
+mn<-min(data)
+mx<-max(data)
+avg<-round(mean(data), 2)
+md<-median(data)
+std<-round(sd(data), 2)
+value <- c(mn,avg,md,mx,std)
+st.tbl <- cbind(statistic, value)
+kable(st.tbl, digits = 2, caption="Variable Culture Descriptive Statistics")
+```
 
 ### Xray
 
-
+```{r, echo=FALSE}
+# table of descriptive stats for the Xray variable
+statistic <- c("Min", "Mean","Median", "Max", "StdDev")
+data<-infection.df$Xray
+mn<-min(data)
+mx<-max(data)
+avg<-round(mean(data), 2)
+md<-median(data)
+std<-round(sd(data), 2)
+value <- c(mn,avg,md,mx,std)
+st.tbl <- cbind(statistic, value)
+kable(st.tbl, digits = 2, caption="Variable Xray Descriptive Statistics")
+```
 
 ### Beds
 
@@ -230,16 +253,30 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Variable Beds Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Variable Beds Descriptive Statistics")
 ```
 
 ### MedSchool
 
-
+```{r, echo=FALSE}
+# table of descriptive stats for the MedSchool variable
+barplot(table(infection.df$MedSchool),
+        main = "",
+        xlab = "Associated Medical School",
+        ylab = "Count",
+        col = "gray")
+```
 
 ### Region
 
-
+```{r, echo=FALSE}
+# table of descriptive stats for the Region variable
+barplot(table(region),
+        main = "",
+        xlab = "Region",
+        ylab = "Number of Hospitals",
+        col = "gray")
+```
 
 ### Census
 
@@ -254,7 +291,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Variable Census Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Variable Census Descriptive Statistics")
 ```
 
 ### Nurses
@@ -270,18 +307,17 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Variable Nurses Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Variable Nurses Descriptive Statistics")
 ```
 
 ### Facilities
 
 ```{r, echo=FALSE}
-
-hist(infection.df$Age, freq = TRUE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Age", # turn off the title as using the fig.cap
-     xlab = "Age (Years)",
-     ylab = "Number of Patients")
-
+hist(infection.df$Facilities, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "", # turn off the title as using the fig.cap
+     xlab = "Facilities and Services Provided",
+     ylab = "Density")
+lines(density(infection.df$Facilities), col = "blue", lwd = 2)
 ```
 
 ```{r, echo=FALSE}
@@ -295,7 +331,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Variable Facilities Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Variable Facilities Descriptive Statistics")
 ```
 
 # Modeling 

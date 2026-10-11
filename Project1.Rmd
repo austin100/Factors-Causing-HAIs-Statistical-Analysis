@@ -142,14 +142,6 @@ From the distribution, we draw the conclusion that patients usually stay at the 
 ```{r, echo=FALSE}
 
 hist(infection.df$Stay, freq=FALSE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Stay", # turn off the title as using the fig.cap
-     xlab = "Days",
-     ylab = "Number of Patients")
-
-```
-```{r, echo=FALSE}
-
-hist(infection.df$Stay, freq=FALSE, # freq = FALSE for density scale on y-axis
      main = "Histogram of Variable Stay, with Density Curve", # turn off the title as using the fig.cap
      xlab = "Days",
      ylab = "Density")
@@ -176,14 +168,6 @@ The histogram for the variable Age shows an approximately normal distribution, w
 
 ```{r, echo=FALSE}
 
-hist(infection.df$Age, freq = TRUE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Age", # turn off the title as using the fig.cap
-     xlab = "Age (Years)",
-     ylab = "Number of Patients")
-
-```
-```{r, echo=FALSE}
-
 hist(infection.df$Age, freq=FALSE, # freq = FALSE for density scale on y-axis
      main = "Histogram of Variable Stay, with Density Curve", # turn off the title as using the fig.cap
      xlab = "Age (Years)",
@@ -202,40 +186,59 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Variable Age Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Variable Age Descriptive Statistics")
 ```
 ## Hospital Factors
 
 There are eight "Hospital" factors in our dataset: Culture, Xray, Beds, MedSchool, Region, Census, Nurses, and Facilities. We explore each variable below.
 
-
 ### Culture
 
-
+```{r, echo=FALSE}
+# table of descriptive stats for the Culture variable
+statistic <- c("Min", "Mean","Median", "Max", "StdDev")
+data<-infection.df$Culture
+mn<-min(data)
+mx<-max(data)
+avg<-round(mean(data), 2)
+md<-median(data)
+std<-round(sd(data), 2)
+value <- c(mn,avg,md,mx,std)
+st.tbl <- cbind(statistic, value)
+kable(st.tbl, digits = 2, caption="Variable Culture Descriptive Statistics")
+```
+```{r, echo=FALSE}
+hist(infection.df$Culture, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Histogram of Variable Cultures, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Ratio of cultures to number of patients without symptoms",
+     ylab = "Density")
+lines(density(infection.df$Culture), col = "blue", lwd = 2)
+```
 
 ### Xray
 
-
+```{r, echo=FALSE}
+# table of descriptive stats for the Xray variable
+statistic <- c("Min", "Mean","Median", "Max", "StdDev")
+data<-infection.df$Xray
+mn<-min(data)
+mx<-max(data)
+avg<-round(mean(data), 2)
+md<-median(data)
+std<-round(sd(data), 2)
+value <- c(mn,avg,md,mx,std)
+st.tbl <- cbind(statistic, value)
+kable(st.tbl, digits = 2, caption="Variable Xray Descriptive Statistics")
+```
+```{r, echo=FALSE}
+hist(infection.df$Xray, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Histogram of Variable Xrays, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Ratio of Xrays to patients without symptoms of pneumonia",
+     ylab = "Density")
+lines(density(infection.df$Xray), col = "blue", lwd = 2)
+```
 
 ### Beds
-```{r, echo=FALSE}
-
-hist(infection.df$Beds, freq = TRUE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Beds", # turn off the title as using the fig.cap
-     xlab = "Number of Beds",
-     ylab = "Number of Hospitals")
-```
-
-```{r, echo=FALSE}
-
-hist(infection.df$Beds, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Beds, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Number of Beds",
-     ylab = "Density")
-
-lines(density(infection.df$Beds), col = "blue", lwd = 2)
-
-```
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Beds variable
@@ -248,38 +251,70 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Variable Beds Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Variable Beds Descriptive Statistics")
+```
+
+```{r, echo=FALSE}
+hist(infection.df$Beds, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Histogram of Variable Beds, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Number of Beds",
+     ylab = "Density")
+lines(density(infection.df$Beds), col = "blue", lwd = 2)
 ```
 
 ### MedSchool
 
+```{r, echo=FALSE}
+counts <- table(infection.df$MedSchool)
 
+st.tbl <- data.frame(
+  MedSchool = names(counts),
+  Count = as.integer(counts),
+  Percent = 100 * as.numeric(counts) / sum(counts)
+)
+
+kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Medical School Affiliation")
+```
+
+```{r, echo=FALSE}
+# table of descriptive stats for the MedSchool variable
+barplot(table(infection.df$MedSchool),
+        main = "Barplot of Variable MedSchool",
+        xlab = "Associated Medical School",
+        ylab = "Count",
+        col = "gray")
+```
 
 ### Region
 
+```{r, echo=FALSE}
+region <- factor(
+  infection.df$Region,
+  levels = c("1", "2", "3", "4"),
+  labels = c("Northeast", "North Central", "South", "West")
+)
 
+counts <- table(region)
+
+st.tbl <- data.frame(
+  Region = names(counts),
+  Count = as.integer(counts),
+  Percent = 100 * as.numeric(counts) / sum(counts)
+)
+
+kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Geographic Region")
+```
+
+```{r, echo=FALSE}
+# table of descriptive stats for the Region variable
+barplot(table(region),
+        main = "Barplot of Variable Region",
+        xlab = "Region",
+        ylab = "Number of Hospitals",
+        col = "gray")
+```
 
 ### Census
-```{r, echo=FALSE}
-
-hist(infection.df$Census, freq = TRUE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Census", # turn off the title as using the fig.cap
-     xlab = "Number of People in Region",
-     ylab = "Number of Hospitals")
-
-
-```
-
-```{r, echo=FALSE}
-
-hist(infection.df$Census, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Census, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Number of People in Region",
-     ylab = "Density")
-
-lines(density(infection.df$Census), col = "blue", lwd = 2)
-
-```
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Census variable
@@ -292,31 +327,18 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Variable Census Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Variable Census Descriptive Statistics")
+```
+```{r, echo=FALSE}
+hist(infection.df$Census, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Histogram of Variable Census, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Number of People in Region",
+     ylab = "Density")
+
+lines(density(infection.df$Census), col = "blue", lwd = 2)
 ```
 
 ### Nurses
-
-```{r, echo=FALSE}
-
-hist(infection.df$Nurses, freq = TRUE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Nurses", # turn off the title as using the fig.cap
-     xlab = "Number of Nurses",
-     ylab = "Number of Hospitals")
-
-
-```
-
-```{r, echo=FALSE}
-
-hist(infection.df$Nurses, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Nurses, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Number of Nurses",
-     ylab = "Density")
-
-lines(density(infection.df$Nurses), col = "blue", lwd = 2)
-
-```
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Nurses variable
@@ -329,31 +351,24 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Variable Nurses Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Variable Nurses Descriptive Statistics")
+```
+```{r, echo=FALSE}
+hist(infection.df$Nurses, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Histogram of Variable Nurses, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Number of Nurses",
+     ylab = "Density")
+lines(density(infection.df$Nurses), col = "blue", lwd = 2)
 ```
 
 ### Facilities
 
 ```{r, echo=FALSE}
-
-hist(infection.df$Facilities, freq = TRUE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Facilities, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Facilities Provided by Hospital (%)",
-     ylab = "Number of Hospitals", 
-     breaks = 10)
-
-```
-
-```{r, echo=FALSE}
-
 hist(infection.df$Facilities, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Variable Facilities", # turn off the title as using the fig.cap
-     xlab = "Facilities Provided by Hospital (%)",
-     ylab = "Density",
-     breaks = 10)
-
+     main = "Histogram of Variable Facilities with Density curve", # turn off the title as using the fig.cap
+     xlab = "Facilities and Services Provided",
+     ylab = "Density")
 lines(density(infection.df$Facilities), col = "blue", lwd = 2)
-
 ```
 
 ```{r, echo=FALSE}
@@ -367,7 +382,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Variable Facilities Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Variable Facilities Descriptive Statistics")
 ```
 
 # Modeling 
@@ -386,7 +401,7 @@ model.summary <- summary(infection.lm)
 ```
 
 ```{r, echo=FALSE}
-#Modeling Results
+#Extracting StdError and P-values
 
 coefficients <- model.summary$coefficients
 coef.tbl <- data.frame(
@@ -403,6 +418,13 @@ kable(
   caption = "Regression Coefficients and Significance"
 )
 ```
+Holding the other predictors constant, average length of stay, culture testing, and X-ray testing were positively associated with infection risk. A one day increase in a hospital’s average length of stay was associated with a 0.24 percentage point increase in infection risk. A 10 unit increase in the culture testing ratio was associated with a 0.54 percentage point increase, while a 10-unit increase in the X-ray testing ratio was associated with a 0.12 percentage point increase.
+
+Medical school affiliation, geographic region, and availability of facilities also showed significant associations. Hospitals without an associated medical school had an estimated infection risk 0.66 percentage points higher than affiliated hospitals. Hospitals in the West had an estimated infection risk 1.15 percentage points higher than hospitals in the Northeast. A 10 percentage point increase in the facilities and services provided was associated with a 0.21 percentage point increase in infection risk. These comparisons hold the remaining predictors constant.
+
+Average patient age, number of beds, average daily patient count, and nursing staff levels were not statistically significant. The North Central and South regions also did not differ significantly from the Northeast. These results indicate lack of evidence of these associations after accounting for the other predictors. They do not establish that the factors have no relation to infection risk.
+
+Culture testing provided the strongest evidence of an association, housing the smallest p-value. However, p-values cannot directly prove predictor importance because the predictors use different units and scales.
 
 ## Hypothesis
 

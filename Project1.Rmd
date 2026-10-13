@@ -319,6 +319,9 @@ barplot(table(infection.df$MedSchool),
 ```
 ### Region
 
+The variable Region measures the geographic region that a hospital is located in, where: 1 represents NE (Northeast), 2 represents NC (Northcentral), 3 represents S (South), and 4 represents W (West).
+
+From the table "Hospitals by Geographic Region" and the barplot "Barplot of Region", we see that most of the hospitals in our dataset are geographically located in the South, at 32.74%. Behind the South region is hospitals located in North Central, at 28.32%, followed by Northeast at 24.78%. The region with the least number of hospitals represented in our dataset is the West, at 14.16%. 
 
 ```{r, echo=FALSE}
 region <- factor(
@@ -351,6 +354,8 @@ barplot(table(region),
 
 ### Census
 
+The variable Census measures the average number of patients in hospital per day during the study period.
+
 ```{r, echo=FALSE}
 # table of descriptive stats for the Census variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
@@ -378,6 +383,8 @@ lines(density(infection.df$Census), col = "blue", lwd = 2)
 
 ### Nurses
 
+The variable Nurses measures the average number of full-time equivalent registered and licensed practical nurses during study period. This number includes the number of full-time nurses plus one half the number of part-time nurses.
+
 ```{r, echo=FALSE}
 # table of descriptive stats for the Nurses variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
@@ -402,6 +409,8 @@ lines(density(infection.df$Nurses), col = "blue", lwd = 2)
 
 
 ### Facilities
+
+The variable Facilities measures the percent of 35 potential facilities and services that are provided by the hospital.
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Facilities variable

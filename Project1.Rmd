@@ -99,21 +99,23 @@ We did not find or remove any outliers in our dataset.
 Our first variable to explore is our outcome variable infection risk, labeled InfctRsk in our dataset. This numeric variable is the average estimated probability of acquiring infection in a hospital, written as a percent.
 
 According to the descriptive statistics table "Infection Risk (InfctRsk) Descriptive Statistics", the minimum average infection risk is 1.3% and the average maximum infection risk is 7.8%. The data centers around a mean of 4.35% and the median average infection risk is 4.4%.
+
 ```{r, echo=FALSE}
 
 # table of descriptive stats for the inflection risk
-statistic <- c("Min", "2nd Quant. (25%)", "Mean","Median", "4th Quant. (75%)", "Max", "StdDev")
+statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$InfctRsk
-quantiles<-quantile(data)
+#quantiles<-quantile(data)
 # extracting the number with as.numeric because quantiles[2] is a named number.
-second.quant<-as.numeric(quantiles[2])
-fourth.quant<-as.numeric(quantiles[4])
+#second.quant<-as.numeric(quantiles[2])
+#fourth.quant<-as.numeric(quantiles[4])
 mn<-min(data)
 mx<-max(data)
 avg<-round(mean(data), 2)
 md<-median(data)
 std<-round(sd(data), 2)
-value <- c(mn,second.quant,avg,md,fourth.quant,mx,std)
+#value <- c(mn,second.quant,avg,md,fourth.quant,mx,std)
+value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
 kable(st.tbl, caption="Infection Risk (InfctRsk) Descriptive Statistics")
 
@@ -241,7 +243,9 @@ lines(density(infection.df$Culture), col = "blue", lwd = 2)
 ### Xray
 The variable Xray measures the ratio of number of X-rays (taking an image of the body, particularly the chest, to look for conditions such as pneumonia) performed to number of patients without signs or symptoms of pneumonia, times 100.
 
+The distribution of Xray is approximately bimodal as there are two distinct peaks: one between the bounds 80 and 90, and another between the bounds 50 and 60. This potentially indicates that there are two different groups in the dataset. For example, one group could be hospitals taking a lower number of Xrays for patients, and the other group could be taking a high number of Xrays on patients.
 
+The descriptive statistics table "Xray Descriptive Statistics" reveals that the minimum ratio of number of X-rays performed to number of patients without symptons of pneumonia is 39.6, and the maximum ratio is 133.5. We find that the mean ratio is 81.63, and the median is 82.3.
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Xray variable
@@ -268,6 +272,8 @@ lines(density(infection.df$Xray), col = "blue", lwd = 2)
 ### Beds
 
 The variable Beds measures the average number of beds in a hospital during study period.
+
+The distribution of Beds from the histogram is skewed to the right, meaning there are outliers in the 600+ bed range. The minimum number of beds is 29 beds at one hospital, and the maximum number of beds is 835, which falls outside of our scale in the histogram. The mean number of beds is 252.17 beds, or about 252 beds, and the median number of beds is 186.
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Beds variable

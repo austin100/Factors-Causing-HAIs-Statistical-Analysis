@@ -239,6 +239,9 @@ lines(density(infection.df$Culture), col = "blue", lwd = 2)
 ```
 
 ### Xray
+The variable Xray measures the ratio of number of X-rays (taking an image of the body, particularly the chest, to look for conditions such as pneumonia) performed to number of patients without signs or symptoms of pneumonia, times 100.
+
+
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Xray variable
@@ -264,6 +267,8 @@ lines(density(infection.df$Xray), col = "blue", lwd = 2)
 
 ### Beds
 
+The variable Beds measures the average number of beds in a hospital during study period.
+
 ```{r, echo=FALSE}
 # table of descriptive stats for the Beds variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
@@ -287,6 +292,11 @@ lines(density(infection.df$Beds), col = "blue", lwd = 2)
 ```
 
 ### MedSchool
+
+The variable MedSchool measures whether a hospital has an associated medical school, with 1 being Yes and 2 being No. We convert the values "1" and "2" into levels ("Yes" and "No") in section 2 "Data Description and Processing" for analysis.
+
+From the table "Hospitals by Medical School Affiliation" and the barplot "Barplot of MedSchool", we see that a majority of hospitals do not have an associated medical school, at 84.96%. There is a small minority of hospitals that have an associated medical school, at 15.04%.
+
 ```{r, echo=FALSE}
 counts <- table(infection.df$MedSchool)
 
@@ -302,16 +312,11 @@ kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Medical Sch
 ```{r, echo=FALSE}
 # table of descriptive stats for the MedSchool variable
 barplot(table(infection.df$MedSchool),
-        main = "Barplot of Variable MedSchool",
+        main = "Barplot of MedSchool",
         xlab = "Associated Medical School",
         ylab = "Count",
         col = "gray")
 ```
-
-
-
-
-
 ### Region
 
 

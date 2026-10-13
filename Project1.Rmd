@@ -210,9 +210,11 @@ There are eight "Hospital" factors in our dataset: Culture, Xray, Beds, MedSchoo
 
 ### Culture
 
-The variable Culture measures the ratio of number of cultures (testing a patient's sample for infection-causing microorganisms) performed to number of patients without signs or symptoms of hospital-acquired infection, times 100.
+The variable Culture measures the ratio of number of cultures (testing a patient's sample for infection-causing microorganisms) performed to number of patients without signs or symptoms of hospital-acquired infection, times 100. For example, if we use the average ratio of number of cultures from this variable of 15.79, that means that for every 100 hospital patients without signs or symptoms of hospital-acquired infection, 15.79 cultures were performed.
 
-The histogram distribution is skewed to the right, with an average Culture between 10 and 20. The descriptive statistics table "Culture Descriptive Statistics" prove this average to be actually 15.79. The minimum ratio of number of cultures is 1.6, and the maximum ratio of number of cultures is 60.5. The density curve fits the distribution pretty well.
+The histogram distribution is skewed to the right, with an average between 10 and 20. The descriptive statistics table "Culture Descriptive Statistics" prove this average to be actually 15.79. The minimum ratio of number of cultures is found to be 1.6 (a value fitting between 0 and 10 in the histogram), and the maximum ratio of number of cultures is 60.5 (a value fitting between 60 and 70 in the histogram). 
+
+The density curve fits the distribution pretty well. Additionally with the right-skewed distribution, there are outliers located between the bounds 50 and 70. We can interpret this as some hospitals having conducting a very high number of cultures on patients without signs or symptoms of hospital-acquired infection.
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Culture variable

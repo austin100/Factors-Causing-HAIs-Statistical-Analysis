@@ -143,7 +143,7 @@ We start with the variable Stay, which measures average length of patient stay, 
 
 The table "Stay Descriptive Statistics" for the variable Stay tell us that the minimum average length that patients stayed at a hospital is 6.7 days, and the maximum average length that patients stayed at a hospital is 19.56 days. The largest cluster of hospitals have patients stay for an average length of 9.65 days. 
 
-The histogram's distribution is skewed to the right, with the average length of stay across most hospitals is less than two weeks. The largest cluster of hospitals maintains an average patient stay of 8 to 10 days. Based on the skewness and outliers, we can see that there are few hospitals that have much longer average stays, ranging from 16 to 20 days.
+The histogram's distribution is skewed to the right, with the average length of Stay across most hospitals is less than two weeks. The largest cluster of hospitals maintains an average patient stay of 8 to 10 days. Based on the skewness and outliers, we can see that there are few hospitals that have much longer average stays, ranging from 16 to 20 days.
 
 The density curve fits the histogram's distribution pretty well.
 
@@ -211,6 +211,8 @@ There are eight "Hospital" factors in our dataset: Culture, Xray, Beds, MedSchoo
 ### Culture
 
 The variable Culture measures the ratio of number of cultures (testing a patient's sample for infection-causing microorganisms) performed to number of patients without signs or symptoms of hospital-acquired infection, times 100.
+
+The histogram distribution is skewed to the right, with an average Culture between 10 and 20. The descriptive statistics table "Culture Descriptive Statistics" prove this average to be actually 15.79. The minimum ratio of number of cultures is 1.6, and the maximum ratio of number of cultures is 60.5. The density curve fits the distribution pretty well.
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Culture variable

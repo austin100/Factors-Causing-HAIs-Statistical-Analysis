@@ -96,14 +96,9 @@ We did not find or remove any outliers in our dataset.
 
 # Data Exploration
 
-Our first variable to explore is our outcome variable infection risk, named InfctRsk in our dataset. This numeric variable is the average estimated probability of acquiring infection in a hospital, written as a percent.
+Our first variable to explore is our outcome variable infection risk, labeled InfctRsk in our dataset. This numeric variable is the average estimated probability of acquiring infection in a hospital, written as a percent.
 
-From the descriptive statistics table "Infection Risk (InfctRsk) Descriptive Statistics", the table shows that the minimum average infection risk is 1.3% and the average maximum infection risk is 7.8%. The largest cluster, or average/mean, of hospitals have an average infection risk is 4.35% and the median average infection risk is 4.4%.
-
-To further explore the infection risk (InfctRsk) variable, a histogram showing the distribution of the variable is created. In the histogram, we see an approximately normal distribution, with only one peak. We can also support that the distribution is normal as the number of observations is greater than 50 (113 > 50). The density curve fits the data pretty well. 
-
-The descriptive statistics table matches up with the histogram as we can see that there is a minimum somewhere between 1% and 2% (Actual minimum: 1.3%), a maximum is located between 7% and 8% (actual: 7.8%), and the average/mean for the InfctRsk variable is between 4% and 5% (Actual average or mean: 4.35%).
-
+According to the descriptive statistics table "Infection Risk (InfctRsk) Descriptive Statistics", the minimum average infection risk is 1.3% and the average maximum infection risk is 7.8%. The data centers around a mean of 4.35% and the median average infection risk is 4.4%.
 ```{r, echo=FALSE}
 
 # table of descriptive stats for the inflection risk
@@ -124,14 +119,19 @@ kable(st.tbl, caption="Infection Risk (InfctRsk) Descriptive Statistics")
 
 ```
 
+To further explore the infection risk (InfctRsk) variable, a histogram showing the distribution of the variable is constructed. This displays an approximately normal distribution, with one peak. 
+
+The density curve fits the data pretty well.
+
 ```{r, echo=FALSE}
 hist(infection.df$InfctRsk, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Histogram of Infection Risk Variable", # turn off the title as using the fig.cap
+     main = "Distribution of Infection Risk (InfctRsk)", # turn off the title as using the fig.cap
      xlab = "Infection Risk (%)",
      ylab = "Density")
 lines(density(infection.df$InfctRsk), col = "blue", lwd = 2)
 ```
 
+The descriptive statistics table matches up with the histogram as we can see that there is a minimum somewhere between 1% and 2% (Actual minimum: 1.3%), a maximum is located between 7% and 8% (actual: 7.8%), and the average/mean for the InfctRsk variable is between 4% and 5% (Actual average or mean: 4.35%).
 
 ## Patient Factors 
 
@@ -141,7 +141,7 @@ The two "Patient" factors in our dataset are Stay and Age. We explored the distr
 
 We start with the variable Stay, which measures average length of patient stay, in days, at a hospital. 
 
-The table "Stay Descriptive Statistics" for the variable Stay tell us that the minimum average length that patients stayed at a hospital is 6.7 days, and the maximum average length that patients stayed at a hospital is 19.56 days. The largest cluster of hospitals have a patient stayed for an average length of 9.65 days. 
+The table "Stay Descriptive Statistics" for the variable Stay tell us that the minimum average length that patients stayed at a hospital is 6.7 days, and the maximum average length that patients stayed at a hospital is 19.56 days. The largest cluster of hospitals have patients stay for an average length of 9.65 days. 
 
 The histogram's distribution is skewed to the right, with the average length of stay across most hospitals is less than two weeks. The largest cluster of hospitals maintains an average patient stay of 8 to 10 days. Based on the skewness and outliers, we can see that there are few hospitals that have much longer average stays, ranging from 16 to 20 days.
 
@@ -213,14 +213,6 @@ There are eight "Hospital" factors in our dataset: Culture, Xray, Beds, MedSchoo
 The variable Culture measures the ratio of number of cultures (testing a patient's sample for infection-causing microorganisms) performed to number of patients without signs or symptoms of hospital-acquired infection, times 100.
 
 ```{r, echo=FALSE}
-hist(infection.df$Culture, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Distribution of Cultures, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Ratio of Cultures to Number of Patients without Symptoms",
-     ylab = "Density")
-lines(density(infection.df$Culture), col = "blue", lwd = 2)
-```
-
-```{r, echo=FALSE}
 # table of descriptive stats for the Culture variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Culture
@@ -234,14 +226,15 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Culture Descriptive Statistics")
 ```
 
-### Xray
 ```{r, echo=FALSE}
-hist(infection.df$Xray, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Distribution of Xrays, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Ratio of Xrays to patients without symptoms of pneumonia",
+hist(infection.df$Culture, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Distribution of Cultures, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Ratio of Cultures to Number of Patients without Symptoms",
      ylab = "Density")
-lines(density(infection.df$Xray), col = "blue", lwd = 2)
+lines(density(infection.df$Culture), col = "blue", lwd = 2)
 ```
+
+### Xray
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Xray variable
@@ -257,17 +250,15 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Xray Descriptive Statistics")
 ```
 
-
-
+```{r, echo=FALSE}
+hist(infection.df$Xray, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Distribution of Xrays, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Ratio of Xrays to patients without symptoms of pneumonia",
+     ylab = "Density")
+lines(density(infection.df$Xray), col = "blue", lwd = 2)
+```
 
 ### Beds
-```{r, echo=FALSE}
-hist(infection.df$Beds, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Distribution of Beds, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Number of Beds",
-     ylab = "Density")
-lines(density(infection.df$Beds), col = "blue", lwd = 2)
-```
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Beds variable
@@ -283,19 +274,15 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Beds Descriptive Statistics")
 ```
 
-
-
-### MedSchool
-
 ```{r, echo=FALSE}
-# table of descriptive stats for the MedSchool variable
-barplot(table(infection.df$MedSchool),
-        main = "Barplot of Variable MedSchool",
-        xlab = "Associated Medical School",
-        ylab = "Count",
-        col = "gray")
+hist(infection.df$Beds, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Distribution of Beds, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Number of Beds",
+     ylab = "Density")
+lines(density(infection.df$Beds), col = "blue", lwd = 2)
 ```
 
+### MedSchool
 ```{r, echo=FALSE}
 counts <- table(infection.df$MedSchool)
 
@@ -308,18 +295,21 @@ st.tbl <- data.frame(
 kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Medical School Affiliation")
 ```
 
+```{r, echo=FALSE}
+# table of descriptive stats for the MedSchool variable
+barplot(table(infection.df$MedSchool),
+        main = "Barplot of Variable MedSchool",
+        xlab = "Associated Medical School",
+        ylab = "Count",
+        col = "gray")
+```
+
+
+
 
 
 ### Region
 
-```{r, echo=FALSE}
-# table of descriptive stats for the Region variable
-barplot(table(region),
-        main = "Barplot of Region",
-        xlab = "Region",
-        ylab = "Number of Hospitals",
-        col = "gray")
-```
 
 ```{r, echo=FALSE}
 region <- factor(
@@ -339,15 +329,18 @@ st.tbl <- data.frame(
 kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Geographic Region")
 ```
 
-### Census
-```{r, echo=FALSE}
-hist(infection.df$Census, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Distribution of Census, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Number of People in Region",
-     ylab = "Density")
+```{r, echo = FALSE}
+# table of descriptive stats for the Region variable
+barplot(table(region),
+        main = "Barplot of Region",
+        xlab = "Region",
+        ylab = "Number of Hospitals",
+        col = "gray")
 
-lines(density(infection.df$Census), col = "blue", lwd = 2)
 ```
+
+
+### Census
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Census variable
@@ -363,14 +356,18 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Census Descriptive Statistics")
 ```
 
-### Nurses
 ```{r, echo=FALSE}
-hist(infection.df$Nurses, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Distribution of Nurses, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Number of Nurses",
+hist(infection.df$Census, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Distribution of Census, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Number of People in Region",
      ylab = "Density")
-lines(density(infection.df$Nurses), col = "blue", lwd = 2)
+
+lines(density(infection.df$Census), col = "blue", lwd = 2)
 ```
+
+
+
+### Nurses
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Nurses variable
@@ -386,16 +383,16 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Nurses Descriptive Statistics")
 ```
 
+```{r, echo=FALSE}
+hist(infection.df$Nurses, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Distribution of Nurses, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Number of Nurses",
+     ylab = "Density")
+lines(density(infection.df$Nurses), col = "blue", lwd = 2)
+```
+
 
 ### Facilities
-
-```{r, echo=FALSE}
-hist(infection.df$Facilities, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Distribution of Facilities, with Density curve", # turn off the title as using the fig.cap
-     xlab = "Facilities and Services Provided",
-     ylab = "Density")
-lines(density(infection.df$Facilities), col = "blue", lwd = 2)
-```
 
 ```{r, echo=FALSE}
 # table of descriptive stats for the Facilities variable
@@ -410,6 +407,15 @@ value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Facilities Descriptive Statistics")
 ```
+
+```{r, echo=FALSE}
+hist(infection.df$Facilities, freq = FALSE, # freq = FALSE for density scale on y-axis
+     main = "Distribution of Facilities, with Density curve", # turn off the title as using the fig.cap
+     xlab = "Facilities and Services Provided",
+     ylab = "Density")
+lines(density(infection.df$Facilities), col = "blue", lwd = 2)
+```
+
 
 # Modeling 
 

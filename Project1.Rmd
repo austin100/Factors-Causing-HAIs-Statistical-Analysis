@@ -33,7 +33,7 @@ seed.val <- 123456
 
 # Overview
 
-Hospital-acquired infections (HAIs), or healthcare-associated infections, are a major problem in United States hospital systems. HAIs are linked to many factors, such as the patient's age or stay at a hospital, as well as the the hospital's infrastructure (e.g. number of available beds at the hospital) and staffing. Knowing how these factors affect a patients risk of acquiring HCIs is important for hospital leaders and institutions to implement policies in minimizing the risk HCIs and better patient care. 
+Hospital-acquired infections (HAIs), or healthcare-associated infections, are a major problem in United States hospital systems. HAIs are linked to many factors, such as the patient's age or stay at a hospital, as well as the the hospital's infrastructure (e.g. number of available beds at the hospital) and staffing. Knowing how these factors affect a patients risk of acquiring HAIs is important for hospital leaders and institutions to implement policies in minimizing the risk HAIs and better patient care. 
 
 The main research question of this analysis is: 
 How do patient and hospital factors affect the risk of a hospital-acquired infection in a hospital? 

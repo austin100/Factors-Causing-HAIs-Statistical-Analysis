@@ -329,6 +329,7 @@ barplot(table(infection.df$MedSchool),
         ylab = "Count",
         col = "gray")
 ```
+
 ### Region
 
 The variable Region measures the geographic region that a hospital is located in, where: 1 represents NE (Northeast), 2 represents NC (Northcentral), 3 represents S (South), and 4 represents W (West).

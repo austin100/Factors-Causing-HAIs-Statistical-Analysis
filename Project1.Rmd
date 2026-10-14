@@ -306,7 +306,7 @@ lines(density(infection.df$Beds), col = "blue", lwd = 2)
 
 The variable MedSchool measures whether a hospital has an associated medical school, with 1 being Yes and 2 being No. We convert the values "1" and "2" into levels ("Yes" and "No") in section 2 "Data Description and Processing" for analysis.
 
-From the table "Hospitals by Medical School Affiliation" and the barplot "Barplot of MedSchool", we see that a majority of hospitals do not have an associated medical school, at 84.96%. There is a small minority of hospitals that have an associated medical school, at 15.04%.
+From the table "Hospitals by Medical School Affiliation" and the bar chart "Bar Chart of MedSchool", we see that a majority of hospitals do not have an associated medical school, at 84.96%. There is a small minority of hospitals that have an associated medical school, at 15.04%.
 
 The density curve fits the distribution pretty well.
 
@@ -325,7 +325,7 @@ kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Medical Sch
 ```{r, echo=FALSE}
 # table of descriptive stats for the MedSchool variable
 barplot(table(infection.df$MedSchool),
-        main = "Barplot of MedSchool",
+        main = "Bar Chart of MedSchool",
         xlab = "Associated Medical School",
         ylab = "Count",
         col = "gray")
@@ -335,7 +335,7 @@ barplot(table(infection.df$MedSchool),
 
 The variable Region measures the geographic region that a hospital is located in, where: 1 represents NE (Northeast), 2 represents NC (Northcentral), 3 represents S (South), and 4 represents W (West).
 
-From the table "Hospitals by Geographic Region" and the barplot "Barplot of Region", we see that most of the hospitals in our dataset are geographically located in the South, at 32.74%. Behind the South region is hospitals located in North Central, at 28.32%, followed by Northeast at 24.78%. The region with the least number of hospitals represented in our dataset is the West, at 14.16%.
+From the table "Hospitals by Geographic Region" and the bar chart "Bar Chart of Region", we see that most of the hospitals in our dataset are geographically located in the South, at 32.74%. Behind the South region is hospitals located in North Central, at 28.32%, followed by Northeast at 24.78%. The region with the least number of hospitals represented in our dataset is the West, at 14.16%.
 
 The density curve fits the distribution pretty well.
 
@@ -360,7 +360,7 @@ kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Geographic 
 ```{r, echo = FALSE}
 # table of descriptive stats for the Region variable
 barplot(table(region),
-        main = "Barplot of Region",
+        main = "Bar Chart of Region",
         xlab = "Region",
         ylab = "Number of Hospitals",
         col = "gray")

@@ -5,6 +5,10 @@ date: "2026-10-14"
 output:
   pdf_document:
     number_sections: true
+    fig_caption: true
+  html_document:
+    fig_caption: true
+  
 ---
 ```{r echo=FALSE, include=FALSE, message=FALSE}
 # all library load statements here
@@ -136,7 +140,7 @@ To further explore the infection risk (InfctRsk) variable, a histogram showing t
 
 The density curve fits the data pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Histogram showing distribution of InfctRsk Variable, with Density Curve Overlaid"}
 hist(infection.df$InfctRsk, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Infection Risk (InfctRsk)", # turn off the title as using the fig.cap
      xlab = "Infection Risk (%)",
@@ -160,7 +164,7 @@ The histogram's distribution is skewed to the right, with the average length of 
 
 The density curve fits the histogram's distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Table showing descriptive statistics of Stay Variable"}
 # table of descriptive stats for the Age variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Stay
@@ -175,7 +179,7 @@ kable(st.tbl, caption="Stay Descriptive Statistics")
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Histogram showing distribution of Stay Variable, with Density Curve Overlaid"}
 
 hist(infection.df$Stay, freq=FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Stay, with Density Curve", # turn off the title as using the fig.cap
@@ -193,7 +197,7 @@ The histogram for the variable Age reveals an approximately normal distribution,
 
 The density curve fits the histogram's distribution well, confirming a normal distribution of the variable Age.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Age Variable"}
 # table of descriptive stats for the Age variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Age
@@ -207,7 +211,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Age Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Age Variable, with Density Curve Overlaid"}
 
 hist(infection.df$Age, freq=FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Age, with Density Curve", # turn off the title as using the fig.cap
@@ -229,7 +233,7 @@ The histogram distribution is skewed to the right, with an average between 10 an
 
 The density curve fits the distribution pretty well. Additionally with the right-skewed distribution, there are outliers located between the bounds 50 and 70. We can interpret this as some hospitals having conducting a very high number of cultures on patients without signs or symptoms of hospital-acquired infection.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Culture Variable"}
 # table of descriptive stats for the Culture variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Culture
@@ -243,7 +247,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Culture Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Culture Variable, with Density Curve Overlaid"}
 hist(infection.df$Culture, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Cultures, with Density Curve", # turn off the title as using the fig.cap
      xlab = "Ratio of Cultures to Number of Patients without Symptoms",
@@ -260,7 +264,7 @@ The descriptive statistics table "Xray Descriptive Statistics" reveals that the 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Xray Variable"}
 # table of descriptive stats for the Xray variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Xray
@@ -274,10 +278,10 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Xray Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Xray Variable, with Density Curve Overlaid"}
 hist(infection.df$Xray, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Distribution of Xrays, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Ratio of Xrays to patients without symptoms of pneumonia",
+     main = "Distribution of Xray, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Ratio of X-rays performed on patients without symptoms of pneumonia",
      ylab = "Density")
 lines(density(infection.df$Xray), col = "blue", lwd = 2)
 ```
@@ -290,7 +294,7 @@ The distribution of Beds from the histogram is skewed to the right, meaning ther
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Beds Variable"}
 # table of descriptive stats for the Beds variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Beds
@@ -304,7 +308,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Beds Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Beds Variable, with Density Curve Overlaid"}
 hist(infection.df$Beds, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Beds, with Density Curve", # turn off the title as using the fig.cap
      xlab = "Average Number of Beds",
@@ -320,7 +324,7 @@ From the table "Hospitals by Medical School Affiliation" and the bar chart "Bar 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of MedSchool Variable"}
 counts <- table(infection.df$MedSchool)
 
 st.tbl <- data.frame(
@@ -332,7 +336,7 @@ st.tbl <- data.frame(
 kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Medical School Affiliation")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Bar Chart of the MedSchool Variable"}
 # table of descriptive stats for the MedSchool variable
 barplot(table(infection.df$MedSchool),
         main = "Bar Chart of MedSchool",
@@ -349,7 +353,7 @@ From the table "Hospitals by Geographic Region" and the bar chart "Bar Chart of 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Region Variable"}
 region <- factor(
   infection.df$Region,
   levels = c("1", "2", "3", "4"),
@@ -367,7 +371,7 @@ st.tbl <- data.frame(
 kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Geographic Region")
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.cap = "Bar Chart of the Region Variable, with Density Curve Overlaid"}
 # table of descriptive stats for the Region variable
 barplot(table(region),
         main = "Bar Chart of Region",
@@ -385,7 +389,7 @@ The distribution of Census is skewed to the right, with outliers between the bou
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Census Variable"}
 # table of descriptive stats for the Census variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Census
@@ -399,7 +403,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Census Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Census Variable, with Density Curve Overlaid"}
 hist(infection.df$Census, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Census, with Density Curve", # turn off the title as using the fig.cap
      xlab = "Average Number of People in Region",
@@ -419,7 +423,7 @@ The distribution of Nurses is skewed to the right, with outliers between the bou
 The density curve fits the distribution pretty well.
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Nurses Variable"}
 # table of descriptive stats for the Nurses variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Nurses
@@ -433,7 +437,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Nurses Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Nurses Variable, with Density Curve Overlaid"}
 hist(infection.df$Nurses, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Nurses, with Density Curve", # turn off the title as using the fig.cap
      xlab = "Average Number of Nurses",
@@ -450,7 +454,7 @@ The histogram of Facilities reveals a bimodal distribution, with two peaks: one 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Facilities Variable"}
 # table of descriptive stats for the Facilities variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Facilities
@@ -464,7 +468,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Facilities Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Facilities Variable, with Density Curve Overlaid"}
 hist(infection.df$Facilities, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Facilities, with Density curve", # turn off the title as using the fig.cap
      xlab = "Facilities and Services Provided",

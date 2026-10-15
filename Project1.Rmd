@@ -45,7 +45,7 @@ We define what "Patient" and "Hospital" factors are in section two.
 
 # Data Description and Processing
 
-The dataset contains data collected from hospitals in the United States, with each row representing one hospital.
+The dataset contains data collected from hospitals in the United States, with each row representing one hospital. The dataset contains 113 rows (observations) and 11 columns (variables).
 
 We categorized the variables in the data set in terms of "Patient Factors" and "Hospital Factors". "Patient Factors" are variables that reference information about a patient, such as how long they stay at the hospital, and their age. "Hospital Factors" are variables associated with the hospital, such as the number of beds the hospital has and the number of nurses for staff. Additionally, we placed "Culture" and "Xray" variables under the group "Hospital Factors", as these are tests conducted by hospitals on patients.  
 
@@ -510,6 +510,96 @@ kable(
   caption = "Regression Coefficients and Significance"
 )
 ```
+```{r, echo=FALSE}
+f.stat <- model.summary$fstatistic
+
+
+fit.tbl <- data.frame(
+  Measure = c(
+    "R-squared (%)",
+    "Adjusted R-squared (%)",
+    "F-statistic",
+    "Overall model p-value"
+  ),
+  Value = c(
+    round(100 * model.summary$r.squared, 2),
+    round(100 * model.summary$adj.r.squared, 2),
+    round(f.stat[1], 2),
+    "<0.01" #actual value is much lower than 0.01
+  )
+)
+
+kable(
+  fit.tbl,
+  row.names = FALSE,
+  caption = "Overall Regression Model Fit"
+)
+```
+
+```{r, echo=FALSE}
+model.vif <- vif(infection.lm)
+
+vif.tbl <- data.frame(
+  Predictor = rownames(model.vif),
+  VIF = model.vif[, "GVIF"],
+  row.names = NULL
+)
+
+kable(
+  vif.tbl,
+  digits = 2,
+  row.names = FALSE,
+  col.names = c("Predictor", "VIF"),
+  caption = "Multicollinearity Assessment"
+)
+```
+
+```{r, echo=FALSE, fig.width=6, fig.height=4}
+plot(
+  fitted(infection.lm),
+  residuals(infection.lm),
+  main = "",
+  xlab = "Fitted Infection Risk (%)",
+  ylab = "Residuals (Percentage Points)",
+  col = "black"
+)
+
+abline(h = 0, col = "red", lty = 2)
+```
+
+```{r, echo=FALSE, fig.width=6, fig.height=4}
+qqnorm(
+  residuals(infection.lm),
+  main = "",
+  xlab = "Normal Quantiles",
+  ylab = "Residuals",
+  col = "black"
+)
+
+qqline(
+  residuals(infection.lm),
+  col = "red",
+  lwd = 2
+)
+```
+
+```{r, echo=FALSE}
+bp.result <- bptest(infection.lm)
+
+bp.tbl <- data.frame(
+  Statistic = round(bp.result$statistic, 2),
+  DegreesOfFreedom = bp.result$parameter,
+  PValue = round(bp.result$p.value, 2)
+)
+
+kable(
+  bp.tbl,
+  row.names = FALSE,
+  col.names = c("Test Statistic", "Degrees of Freedom", "P-value"),
+  caption = "Breusch-Pagan Test for Nonconstant Variance"
+)
+```
+
 Holding the other predictors constant, average length of stay, culture testing, and X-ray testing were positively associated with infection risk. A one day increase in a hospital’s average length of stay was associated with a 0.24 percentage point increase in infection risk. A 10 unit increase in the culture testing ratio was associated with a 0.54 percentage point increase, while a 10-unit increase in the X-ray testing ratio was associated with a 0.12 percentage point increase.
 
 Medical school affiliation, geographic region, and availability of facilities also showed significant associations. Hospitals without an associated medical school had an estimated infection risk 0.66 percentage points higher than affiliated hospitals. Hospitals in the West had an estimated infection risk 1.15 percentage points higher than hospitals in the Northeast. A 10 percentage point increase in the facilities and services provided was associated with a 0.21 percentage point increase in infection risk. These comparisons hold the remaining predictors constant.
@@ -519,7 +609,9 @@ Average patient age, number of beds, average daily patient count, and nursing st
 Culture testing provided the strongest evidence of an association, housing the smallest p-value. However, p-values cannot directly prove predictor importance because the predictors use different units and scales.
 
 ## Hypothesis
+The null hypothesis is that all predictor coefficients, excluding the intercept, equal zero. This means the model provides no linear improvement over predicting infection risk using only its overall mean. The alternative hypothesis is that at least one predictor coefficient is nonzero.
 
+Using a significance level of 0.05, the overall F-test was statistically significant (F = 11.76, p < 0.01). Therefore, we reject the null hypothesis and conclude that at least one predictor is associated with hospital infection risk.
 
 ## Model 1:
 

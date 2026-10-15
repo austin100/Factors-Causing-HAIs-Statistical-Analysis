@@ -5,6 +5,10 @@ date: "2026-10-14"
 output:
   pdf_document:
     number_sections: true
+    fig_caption: true
+  html_document:
+    fig_caption: true
+  
 ---
 ```{r echo=FALSE, include=FALSE, message=FALSE}
 # all library load statements here
@@ -33,10 +37,11 @@ seed.val <- 123456
 
 # Overview
 
-Hospital-acquired infections (HAIs), or healthcare-associated infections, are a major problem in United States hospital systems. HAIs are linked to many factors, such as the patient's age or stay at a hospital, as well as the the hospital's infrastructure (e.g. number of available beds at the hospital) and staffing. Knowing how these factors affect a patients risk of acquiring HAIs is important for hospital leaders and institutions to implement policies in minimizing the risk HAIs and better patient care. 
+Hospital-acquired infections (HAIs), or healthcare-associated infections, are a major problem in United States hospital systems. Hospital-acquired infections are infections that a patient contracts while staying at the hospital. HAIs are linked to many factors, such as the patient's age or length of stay at a hospital, as well as the the hospital's infrastructure, such as the number of available hospital beds and hospital staff. Knowing how these factors affect a patients' risk of acquiring hospital-acquired infections is important for hospital leaders and systems to implement policies in minimizing the risk of hospital-acquired infections and better patient care. 
 
-The main research question of this analysis is: 
-How do patient and hospital factors affect the risk of a hospital-acquired infection in a hospital? 
+The main research question we will investigate is: How do patient and hospital factors affect the risk of a hospital-acquired infection in a hospital? 
+
+We define what "Patient" and "Hospital" factors are in section two. 
 
 # Data Description and Processing
 
@@ -60,9 +65,19 @@ Xray (numeric): Ratio of number of X-rays (taking an image of the body, particul
 
 Beds (numeric): Average number of beds in hospital during study period.
 
-MedSchool (categorical - factor): Hospital has an associated medical school: 1 =Yes, 2=No --> We decided to factor this categorical variable as there are different "groups" or levels for medical school (1 is "Yes", 2 is "No"). 
+MedSchool (categorical - factor): Hospital has an associated medical school, where: 
+--> 1 = Yes
+--> 2 = No 
 
-Region (categorical - factor): Geographic region, where: 1 =NE, 2=NC, 3=S, 4=W --> We decided to factor this variable as there are different "groups" of regions. One group of hospitals are located in the Northeast, three distinct groups are located in North Central, South, and West in the United States. 
+We decided to factor this categorical variable, MedSchool, as there are different "groups" or levels for medical school. For example, "1" represents "Yes" as schools with a medical school, and "2" represents "No" as schools without a medical school. 
+
+Region (categorical - factor): Geographic region, where: 
+--> 1 = NE
+--> 2 = NC
+--> 3 = S
+--> 4 = W 
+
+We decided to factor this categorical variable, Region, as there are different "groups" of regions. One group of hospitals are located in the Northeast, and three distinct groups are located in the distinct regions of the North Central, South, and West in the United States. 
 
 Census (numeric): Average number of patients in hospital per day during study period.
 
@@ -70,7 +85,7 @@ Nurses (numeric): Average number of full-time equivalent registered and licensed
 
 Facilities (numeric): Percent of 35 potential facilities and services that are provided by the hospital.
 
-Outcome/ Dependent Variable: 
+*Outcome/ Dependent Variable*: 
 Our dependent variable is infection risk (named InfctRsk in our dataset). 
 InfctRsk (numeric): Average estimated probability of acquiring infection in hospital (percent)
 
@@ -125,7 +140,7 @@ To further explore the infection risk (InfctRsk) variable, a histogram showing t
 
 The density curve fits the data pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Histogram showing distribution of InfctRsk Variable, with Density Curve Overlaid"}
 hist(infection.df$InfctRsk, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Infection Risk (InfctRsk)", # turn off the title as using the fig.cap
      xlab = "Infection Risk (%)",
@@ -149,7 +164,7 @@ The histogram's distribution is skewed to the right, with the average length of 
 
 The density curve fits the histogram's distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Table showing descriptive statistics of Stay Variable"}
 # table of descriptive stats for the Age variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Stay
@@ -164,7 +179,7 @@ kable(st.tbl, caption="Stay Descriptive Statistics")
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Histogram showing distribution of Stay Variable, with Density Curve Overlaid"}
 
 hist(infection.df$Stay, freq=FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Stay, with Density Curve", # turn off the title as using the fig.cap
@@ -182,7 +197,7 @@ The histogram for the variable Age reveals an approximately normal distribution,
 
 The density curve fits the histogram's distribution well, confirming a normal distribution of the variable Age.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Age Variable"}
 # table of descriptive stats for the Age variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Age
@@ -196,7 +211,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Age Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Age Variable, with Density Curve Overlaid"}
 
 hist(infection.df$Age, freq=FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Age, with Density Curve", # turn off the title as using the fig.cap
@@ -218,7 +233,7 @@ The histogram distribution is skewed to the right, with an average between 10 an
 
 The density curve fits the distribution pretty well. Additionally with the right-skewed distribution, there are outliers located between the bounds 50 and 70. We can interpret this as some hospitals having conducting a very high number of cultures on patients without signs or symptoms of hospital-acquired infection.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Culture Variable"}
 # table of descriptive stats for the Culture variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Culture
@@ -232,7 +247,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Culture Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Culture Variable, with Density Curve Overlaid"}
 hist(infection.df$Culture, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Cultures, with Density Curve", # turn off the title as using the fig.cap
      xlab = "Ratio of Cultures to Number of Patients without Symptoms",
@@ -249,7 +264,7 @@ The descriptive statistics table "Xray Descriptive Statistics" reveals that the 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Xray Variable"}
 # table of descriptive stats for the Xray variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Xray
@@ -263,10 +278,10 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Xray Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Xray Variable, with Density Curve Overlaid"}
 hist(infection.df$Xray, freq = FALSE, # freq = FALSE for density scale on y-axis
-     main = "Distribution of Xrays, with Density Curve", # turn off the title as using the fig.cap
-     xlab = "Ratio of Xrays to patients without symptoms of pneumonia",
+     main = "Distribution of Xray, with Density Curve", # turn off the title as using the fig.cap
+     xlab = "Ratio of X-rays performed on patients without symptoms of pneumonia",
      ylab = "Density")
 lines(density(infection.df$Xray), col = "blue", lwd = 2)
 ```
@@ -279,7 +294,7 @@ The distribution of Beds from the histogram is skewed to the right, meaning ther
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Beds Variable"}
 # table of descriptive stats for the Beds variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Beds
@@ -293,7 +308,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Beds Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Beds Variable, with Density Curve Overlaid"}
 hist(infection.df$Beds, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Beds, with Density Curve", # turn off the title as using the fig.cap
      xlab = "Average Number of Beds",
@@ -305,11 +320,11 @@ lines(density(infection.df$Beds), col = "blue", lwd = 2)
 
 The variable MedSchool measures whether a hospital has an associated medical school, with 1 being Yes and 2 being No. We convert the values "1" and "2" into levels ("Yes" and "No") in section 2 "Data Description and Processing" for analysis.
 
-From the table "Hospitals by Medical School Affiliation" and the barplot "Barplot of MedSchool", we see that a majority of hospitals do not have an associated medical school, at 84.96%. There is a small minority of hospitals that have an associated medical school, at 15.04%.
+From the table "Hospitals by Medical School Affiliation" and the bar chart "Bar Chart of MedSchool", we see that a majority of hospitals do not have an associated medical school, at 84.96%. There is a small minority of hospitals that have an associated medical school, at 15.04%.
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of MedSchool Variable"}
 counts <- table(infection.df$MedSchool)
 
 st.tbl <- data.frame(
@@ -321,10 +336,10 @@ st.tbl <- data.frame(
 kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Medical School Affiliation")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Bar Chart of the MedSchool Variable"}
 # table of descriptive stats for the MedSchool variable
 barplot(table(infection.df$MedSchool),
-        main = "Barplot of MedSchool",
+        main = "Bar Chart of MedSchool",
         xlab = "Associated Medical School",
         ylab = "Count",
         col = "gray")
@@ -334,11 +349,11 @@ barplot(table(infection.df$MedSchool),
 
 The variable Region measures the geographic region that a hospital is located in, where: 1 represents NE (Northeast), 2 represents NC (Northcentral), 3 represents S (South), and 4 represents W (West).
 
-From the table "Hospitals by Geographic Region" and the barplot "Barplot of Region", we see that most of the hospitals in our dataset are geographically located in the South, at 32.74%. Behind the South region is hospitals located in North Central, at 28.32%, followed by Northeast at 24.78%. The region with the least number of hospitals represented in our dataset is the West, at 14.16%.
+From the table "Hospitals by Geographic Region" and the bar chart "Bar Chart of Region", we see that most of the hospitals in our dataset are geographically located in the South, at 32.74%. Behind the South region is hospitals located in North Central, at 28.32%, followed by Northeast at 24.78%. The region with the least number of hospitals represented in our dataset is the West, at 14.16%.
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Region Variable"}
 region <- factor(
   infection.df$Region,
   levels = c("1", "2", "3", "4"),
@@ -356,10 +371,10 @@ st.tbl <- data.frame(
 kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Geographic Region")
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.cap = "Bar Chart of the Region Variable, with Density Curve Overlaid"}
 # table of descriptive stats for the Region variable
 barplot(table(region),
-        main = "Barplot of Region",
+        main = "Bar Chart of Region",
         xlab = "Region",
         ylab = "Number of Hospitals",
         col = "gray")
@@ -374,7 +389,7 @@ The distribution of Census is skewed to the right, with outliers between the bou
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Census Variable"}
 # table of descriptive stats for the Census variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Census
@@ -388,7 +403,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Census Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Census Variable, with Density Curve Overlaid"}
 hist(infection.df$Census, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Census, with Density Curve", # turn off the title as using the fig.cap
      xlab = "Average Number of People in Region",
@@ -408,7 +423,7 @@ The distribution of Nurses is skewed to the right, with outliers between the bou
 The density curve fits the distribution pretty well.
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Nurses Variable"}
 # table of descriptive stats for the Nurses variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Nurses
@@ -422,7 +437,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Nurses Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Nurses Variable, with Density Curve Overlaid"}
 hist(infection.df$Nurses, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Nurses, with Density Curve", # turn off the title as using the fig.cap
      xlab = "Average Number of Nurses",
@@ -439,7 +454,7 @@ The histogram of Facilities reveals a bimodal distribution, with two peaks: one 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Facilities Variable"}
 # table of descriptive stats for the Facilities variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Facilities
@@ -453,7 +468,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Facilities Descriptive Statistics")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Facilities Variable, with Density Curve Overlaid"}
 hist(infection.df$Facilities, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "Distribution of Facilities, with Density curve", # turn off the title as using the fig.cap
      xlab = "Facilities and Services Provided",

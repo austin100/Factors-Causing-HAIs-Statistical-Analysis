@@ -6,8 +6,6 @@ output:
   pdf_document:
     number_sections: true
     fig_caption: true
-  html_document:
-    fig_caption: true
   
 ---
 ```{r echo=FALSE, include=FALSE, message=FALSE}

@@ -745,6 +745,68 @@ The Breusch–Pagan test produced a statistic of 6.83 with 8 degrees of freedom 
 Model 2 retained six predictors rather than ten, while its adjusted R-squared increased slightly from 53.56% to 53.82%. It therefore achieved similar fit with fewer predictors and much less multicollinearity.
 # Predicting with Models 1 and 2
 
+```{r, include=FALSE}
+# Generate reproducible training folds
+RNGversion(r.version)
+set.seed(seed.val)
+
+train.control <- trainControl(
+  method = "repeatedcv",
+  number = 10,
+  repeats = 3,
+)
+
+# Model 1: all ten predictors
+RNGversion(r.version)
+set.seed(seed.val)
+
+model.full <- train(
+  InfctRsk ~ Stay + Age + Culture + Xray + Beds +
+    MedSchool + Region + Census + Nurses + Facilities,
+  data = infection.df,
+  method = "lm",
+  trControl = train.control
+)
+
+# Model 2: the six predictors retained by stepwise selection
+RNGversion(r.version)
+set.seed(seed.val)
+
+model.step <- train(
+  InfctRsk ~ Stay + Culture + Xray + MedSchool +
+    Region + Facilities,
+  data = infection.df,
+  method = "lm",
+  trControl = train.control
+)
+```
+
+We evaluated both models using 10-fold cross-validation repeated three times. In each repetition, the data was divided into ten groups. Each model was trained using 90% of the observations and tested on the remaining 10%, until every group had been used for validation. Both models used the same splits, producing 30 validation results per model.
+
+We measured prediction error using root mean squared error (RMSE), expressed in percentage points of infection risk. Lower RMSE indicates more accurate predictions. We summarized performance using the RMSE and its standard deviation across the validation samples.
+
+```{r, echo=FALSE}
+cv.summary <- data.frame(
+  Model = c("Model 1: Full", "Model 2: Reduced"),
+  RMSE = c(
+    model.full$results$RMSE,
+    model.step$results$RMSE
+  ),
+  SDRMSE = c(
+    model.full$results$RMSESD,
+    model.step$results$RMSESD
+  )
+)
+
+kable(
+  cv.summary,
+  digits = 2,
+  row.names = FALSE,
+  col.names = c("Model", "RMSE", "RMSE Standard Deviation"),
+  caption = "Repeated Cross-Validation Prediction Performance"
+)
+```
+Model 1 had a mean RMSE of 99 percentage points, compared with 95 for Model 2. Their RMSE standard deviations were 0.19 and 0.16, respectively. Model 2 had the lower average prediction error and showed more consistent performance across validation samples.
 
 # Summary and Conclusions
 

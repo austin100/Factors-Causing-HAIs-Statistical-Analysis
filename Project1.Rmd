@@ -572,7 +572,7 @@ kable(
 ```
 The Multicollinearity assessment identified high VIF values for Beds (35.74), Census (37.77), and Nurses (7.47). These values indicate substantial overlap between these predictors and other predictors in the model. All remaining values were below the threshold(5).
 
-```{r, echo=FALSE, fig.width=6, fig.height=4}
+```{r, echo=FALSE, fig.width=6, fig.height=4, fig.cap= "Residuals v.s. Infection Risk"}
 plot(
   fitted(infection.lm),
   residuals(infection.lm),
@@ -751,6 +751,7 @@ set.seed(seed.val)
 train.control <- trainControl(
   method = "repeatedcv",
   number = 10,
+  p = 0.8,
   repeats = 3,
 )
 

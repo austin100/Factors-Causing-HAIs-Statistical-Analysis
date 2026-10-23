@@ -433,7 +433,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Nurses Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Nurses Variable, with Density Curve Overlaid"}
+```{r, echo=FALSE, out.width = "70%", fig.cap = "Histogram showing distribution of Nurses Variable, with Density Curve Overlaid"}
 hist(infection.df$Nurses, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
      xlab = "Average Number of Nurses",
@@ -449,7 +449,7 @@ The histogram of Facilities reveals a bimodal distribution, with two peaks: one 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE, fig.cap = "Table showing descriptive statistics of Facilities Variable"}
+```{r, echo=FALSE, out.width = "70%", fig.cap = "Table showing descriptive statistics of Facilities Variable"}
 # table of descriptive stats for the Facilities variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Facilities
@@ -463,7 +463,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, digits = 2, caption="Facilities Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.cap = "Histogram showing distribution of Facilities Variable, with Density Curve Overlaid"}
+```{r, echo=FALSE, out.width = "70%", fig.cap = "Histogram showing distribution of Facilities Variable, with Density Curve Overlaid"}
 hist(infection.df$Facilities, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
      xlab = "Facilities and Services Provided",
@@ -490,14 +490,14 @@ model2.summary <- summary(infection.step)
 ```
 
 ## Hypothesis
-The null hypothesis is that all predictor coefficients, excluding the intercept, equal zero. This means the model provides no linear improvement over predicting infection risk using only its overall mean. The alternative hypothesis is that at least one predictor coefficient is nonzero.
+The null hypothesis is that all predictor coefficients, excluding the intercept, equal zero. This means that the predictors, such as Beds or Age, have zero effect on the response variable, which is the average probability of acquiring an infection in the hospital (InfctRsk). The alternative hypothesis is that at least one predictor coefficient is nonzero. This would mean that there is a predictor that has an effect on the average probability of acquiring an infection in the hospital, and it could be increasing or decreasing the probability of infection risk.
 
-Using a significance level of 0.05, the overall F-test was statistically significant (F = 11.76, p < 0.01). Therefore, we reject the null hypothesis and conclude that at least one predictor is associated with hospital infection risk.
+Using a significance level of 0.05, the overall F-test was statistically significant, with an F-statistic of 11.76 and a p-value of 1.963e-14. We find the p-value is less than the significance level, as 1.963e-14 is less than .05. Therefore, we reject the null hypothesis and conclude that at least one of our predictors has an effect on the average probability of hospital infection risk.
 
 ## Model 1:
 For our first model, we will include all ten predictors.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = "70%", fig.cap= "Model 1 Fit Regression Coefficients & Significance for all Predictors"}
 #Extracting StdError and P-values
 coefficients <- model.summary$coefficients
 coef.tbl <- data.frame(
@@ -514,13 +514,17 @@ kable(
   caption = "Regression Coefficients and Significance"
 )
 ```
-Holding other predictors constant, Stay, Culture, Xray, Facilities, medical school affiliation, and the West to Northeast comparison were significant at the 0.05 level. Each additional day of average stay was associated with a 0.24 percent point increase in infection risk. Ten unit increases in Culture and Xray were associated with increases of 0.54 and 0.12 percentage points, respectively. A ten percent point increase in Facilities was associated with a 0.21 percentage-point increase.
+Holding other predictors constant, we find that from the table "Model 1 Fit Regression Coefficients & Significance for all Predictors", the predictors Stay, Culture, Xray, Facilities, MedSchoolNo, and Region 1 (Northeast) to Region 4 (West) comparison were significant at the 0.05 level as each p-value was less than 0.05. 
 
-Hospitals without medical school affiliations had infection risk 0.66 percentage points higher than affiliated hospitals. Western hospitals had risk 1.15 percentage points higher than Northeastern hospitals.
+Note that Region1 (Northeast) is not in the table to prevent perfect multicollinearity. Instead, Region1 is a baseline to compare each region (i.e. Region2, Region3, and Region4) against it. For example, region 4's values (e.g. coefficient of 1.15) is the expected difference in the outcome between Region4 and Region1. This is also seen with MedSchool, where MedSchoolYes (Hospitals with an associated medical school) is the baseline, and MedSchoolNo (Hospitals without an associated medical school) is compared against MedSchoolYes.
 
-Age, Beds, Census, Nurses, and the remaining regional comparisons were not significant. Culture had the smallest p-value, providing the strongest evidence of an association. Note that coefficient magnitudes require caution when comparing predictors as their units differ.
+Each additional day increase (or one unit increase) in the variable Stay is associated with a 0.24 percent increase in infection risk. One unit increases in Culture is associated with an increase of approximately 0.054 percent in infection risk, as well as a one unit increase in Xray leads to an approximately .011553 percent increase of infection risk. A one percent point increase in Facilities was associated with an approximate 0.021 percentage-point infection risk increase.
 
-```{r, echo=FALSE}
+Hospitals without medical school affiliations had infection risk 0.66 percentage points higher than affiliated hospitals. Hospitals in Region4 (West) had about  1.15 percentage points of higher infection risk than Hospitals in Region1 (Northeast).
+
+Age, Beds, Census, Nurses, and the remaining regional comparisons were not significant. Culture had the smallest p-value, providing the strongest evidence of an association. 
+
+```{r, echo=FALSE, out.width = "70%", fig.cap = "Model 1 Regression Model Fit Table"}
 #Overall fit
 f.stat <- model.summary$fstatistic
 
@@ -547,9 +551,9 @@ kable(
 )
 ```
 
-The model explained 58.54% of the variation in infection risk across hospitals. After accounting for the predictor coefficients, the adjusted R-squared was 53.56%. The overall F-test was statistically significant (F = 11.76, p < 0.01); at least one predictor was associated with infection risk.
+The table "Model 1 Regression Model Fit Table" reveals that Model 1 explained 58.54% of the variation in infection risk across hospitals. After accounting for the predictor coefficients, the adjusted R-squared was 53.56%. The overall F-test was statistically significant (F-statistic is 11.76; p-value is less than 0.01 which is less than the chosen significance level of 0.05); at least one predictor was associated with infection risk.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="60%", fig.cap="Model 1 Multicollinearity Assessment Table, showing VIF values for Predictors"}
 model.vif <- vif(infection.lm)
 
 vif.tbl <- data.frame(
@@ -566,9 +570,9 @@ kable(
   caption = "Multicollinearity Assessment"
 )
 ```
-The Multicollinearity assessment identified high VIF values for Beds (35.74), Census (37.77), and Nurses (7.47). These values indicate substantial overlap between these predictors and other predictors in the model. All remaining values were below the threshold(5).
+The table "Model 1 Multicollinearity Assessment Table, showing VIF values for Predictors" reveals that the multicollinearity assessment identified high Variance Inflation Factor (VIF) values for Beds (35.74), Census (37.77), and Nurses (7.47). These values indicate substantial overlap between these predictors and other predictors in the model. All remaining values were below the threshold(5).
 
-```{r, echo=FALSE, fig.width=6, fig.height=4}
+```{r, echo=FALSE, out.width="65%", fig.cap="Model 1 Fitted vs. Residuals Plot"}
 plot(
   fitted(infection.lm),
   residuals(infection.lm),
@@ -580,9 +584,9 @@ plot(
 
 abline(h = 0, col = "red", lty = 2)
 ```
-The residuals are distributed on both sides of zero, without a pronounced funnel-shaped pattern. A few large residuals are also present. The plot therefore suggests possible departures from a linear relationship.
+The figure "Model 1 Fitted vs. Residuals Plot" shows residuals distributed on both sides of zero, without a pronounced funnel-shaped pattern. A few large residuals are also present. The plot therefore suggests possible departures from a linear relationship.
 
-```{r, echo=FALSE, fig.width=6, fig.height=4}
+```{r, echo=FALSE, out.width="65%", fig.cap = "Model 1 Q-Q Plot"}
 qqnorm(
   residuals(infection.lm),
   main = "",
@@ -597,9 +601,9 @@ qqline(
   lwd = 2
 )
 ```
-Most residuals follow the reference line closely. Departures occur in the tails, especially where the largest positive residuals lie above the line. This suggests residual normality, although the upper tail shows some deviation from the normal distribution.
+The figure "Model 1 Q-Q Plot" reveals that most residuals follow the red reference line closely. There are some points off the reference line at tails, especially where the largest positive residuals (Normal Quantiles greater than about 1.5+) lie above the line. This suggests residual normality, although the upper tail shows some deviation from the normal distribution.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = "70%", fig.cap="Model 1 Breusch-Pagan Test"}
 bp.result <- bptest(infection.lm)
 
 bp.tbl <- data.frame(
@@ -615,12 +619,12 @@ kable(
   caption = "Breusch-Pagan Test for Nonconstant Variance"
 )
 ```
-The Breusch–Pagan test produced a test statistic of 14.01 with 12 degrees of freedom and a p-value of 0.30. At the 0.05 significance level, we fail to reject the null hypothesis of homoscedasticity (constant error variance). The test provides insufficient evidence of heteroscedasticity (nonconstant error variance), consistent with the absence of a funnel pattern in the residual plot.
+The "Model 1 Breusch-Pagan Test" table reveals that a conducted Breusch-Pagan Test produced a test statistic of 14.01 with 12 degrees of freedom and a p-value of 0.30. At the 0.05 significance level, we fail to reject (and thus accept) the null hypothesis of homoscedasticity (constant error variance). The test provides insufficient evidence of heteroscedasticity (nonconstant error variance), consistent with the absence of a funnel pattern in the residual plot.
 
 ## Model 2: 
 For our second model, we will only include "Stay", "Culture", "Xray", "MedSchool", and "Region", and "Facilities". This model was chosen using stepwise selection.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = "70%", fig.cap= "Model 2: Fit Regression Coefficients & Significance for Stepwise Selected Predictors"}
 #Extracting StdError and P-values
 coefficients <- model2.summary$coefficients
 coef.tbl <- data.frame(
@@ -637,11 +641,13 @@ kable(
   caption = "Regression Coefficients and Significance"
 )
 ```
-Holding the other included predictors constant, Stay, Culture, Xray, Facilities, and the West to Northeast comparison were significant at the 0.05 level. Each additional day of average stay was associated with a 0.27 percent point increase in infection risk. One unit increases in Culture and Xray were associated with approximately 0.05 and 0.01 percent point increases, respectively. Each percentage-point increase in Facilities was associated with approximately 0.03 percent points higher infection risk.
+From the table "Model 2: Fit Regression Coefficients & Significance for Stepwise Selected Predictors", if we holding the other included predictors constant, Stay, Culture, Xray, Facilities, and the Region1 (Northeast) to Region4 (West) comparison were significant at the 0.05 level. 
 
-Western hospitals had estimated infection risk 1.11 percent points higher than Northeastern hospitals. Medical school affiliation was not significant at the 0.05 level (p = 0.09), nor were the North Central to Northeast and South to Northeast comparisons.
+Each additional day of average stay was associated with a 0.27 percent point increase in infection risk. One unit increases in Culture and Xray were associated with approximately 0.05 and 0.01 percent point increases, respectively. Each percentage-point increase in Facilities was associated with approximately 0.025 percentage points higher infection risk.
 
-```{r, echo=FALSE}
+West hospitals (Hospitals in the West Region) had estimated infection risk of about 1.11 percent points for infection risk higher than Northeast hospitals (Hospitals in the Northeast Region). Medical school affiliation was not significant at the 0.05 level (p = 0.09), nor were the North Central to Northeast and South to Northeast region comparisons.
+
+```{r, echo=FALSE, out.width = "50%", fig.cap = "Model 2 Regression Model Fit Table"}
 #Overall fit
 f.stat <- model2.summary$fstatistic
 
@@ -667,8 +673,9 @@ kable(
   caption = "Overall Regression Model Fit"
 )
 ```
-Model 2 explained 57.12% of the variation in infection risk, with an adjusted R-squared of 53.82%. The overall F-test was statistically significant (F = 17.32, p < 0.01); at least one included predictor was associated with infection risk.
-```{r, echo=FALSE}
+From the "Model 2 Regression Model Fit Table", Model 2 reveals 57.12% of the variation in infection risk, with an adjusted R-squared of 53.82%. The overall F-test was statistically significant (F = 17.32, p < 0.01); at least one included predictor was associated with infection risk.
+
+```{r, echo=FALSE, out.width = "50%", fig.cap = "Model 2 Multicollinearity Assessment Table, showing VIF values for Predictors"}
 model.vif <- vif(infection.step)
 
 vif.tbl <- data.frame(
@@ -685,8 +692,8 @@ kable(
   caption = "Multicollinearity Assessment"
 )
 ```
-The displayed VIF values ranged from 1.36 to 1.67. Compared with Model 1, these results indicate reduced multicollinearity and less inflation of coefficient variances from overlapping predictors.
-```{r, echo=FALSE, fig.width=6, fig.height=4}
+The displayed VIF values in "Model 2 Multicollinearity Assessment Table, showing VIF values for Predictors" ranged from 1.36 to 1.67. Compared with Model 1, these results indicate reduced multicollinearity and less inflation of coefficient variances from overlapping predictors.
+```{r, echo=FALSE, out.width = "60%", fig.cap = "Model 2 Fitted vs. Residuals Plot"}
 plot(
   fitted(infection.step),
   residuals(infection.step),
@@ -698,9 +705,9 @@ plot(
 
 abline(h = 0, col = "red", lty = 2)
 ```
-Residuals appear on both sides of zero. However, negative residuals at the lowest and highest fitted values suggest possible curvature. The reduced model therefore potentially departures from a linear relationship.
+In "Model 2 Fitted vs. Residuals Plot", the residuals appear on both sides of zero. However, negative residuals at the lowest and highest fitted values suggest possible curvature. The reduced model therefore potentially departures from a linear relationship.
 
-```{r, echo=FALSE, fig.width=6, fig.height=4}
+```{r, echo=FALSE, out.width = "50%", fig.cap = "Model 2 Q-Q Plot"}
 qqnorm(
   residuals(infection.step),
   main = "",
@@ -716,9 +723,9 @@ qqline(
 )
 ```
 
-The residuals generally follow the normal reference line, with minor departures in the tails. The plot supports approximate residual normality.
+In "Model 2 Q-Q Plot", the residuals generally follow the normal reference line, with minor departures in the tails. The plot supports approximate residual normality.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = "50%", fig.cap = "Model 2 Breusch-Pagan Test"}
 bp.result <- bptest(infection.step)
 
 bp.tbl <- data.frame(
@@ -780,7 +787,7 @@ We evaluated both models using 10-fold cross-validation repeated three times. In
 
 We measured prediction error using root mean squared error (RMSE), expressed in percentage points of infection risk. Lower RMSE indicates more accurate predictions. We summarized performance using the RMSE and its standard deviation across the validation samples.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="50%", fig.cap = "Repeated Cross-Validation Prediction Performance Table"}
 cv.summary <- data.frame(
   Model = c("Model 1: Full", "Model 2: Reduced"),
   RMSE = c(

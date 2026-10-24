@@ -163,7 +163,7 @@ The histogram's distribution is skewed to the right, with the average length of 
 
 The density curve fits the histogram's distribution pretty well.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%",fig.cap= "Table showing descriptive statistics of Stay Variable" }
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%",fig.cap= "Table showing descriptive statistics of Stay Variable"}
 # table of descriptive stats for the Age variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Stay
@@ -177,7 +177,7 @@ st.tbl <- cbind(statistic, value)
 kable(st.tbl, caption = "Stay Variable Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap= "Histogram showing distribution of Stay Variable, with Density Curve Overlaid" }
+```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap= "Histogram showing distribution of Stay Variable, with Density Curve Overlaid"}
 
 hist(infection.df$Stay, freq=FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
@@ -194,7 +194,7 @@ The histogram for the variable Age reveals an approximately normal distribution,
 
 The density curve fits the histogram's distribution well, confirming a normal distribution of the variable Age.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Table showing descriptive statistics of Age Variable"  }
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # table of descriptive stats for the Age variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Age
@@ -205,7 +205,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, digits = 2)
+kable(st.tbl, digits = 2, caption = "Age Variable Descriptive Statistics")
 ```
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Age Variable, with Density Curve Overlaid"  }
@@ -232,7 +232,7 @@ The histogram distribution is skewed to the right, with an average between 10 an
 
 The density curve fits the distribution pretty well. Additionally with the right-skewed distribution, there are outliers located between the bounds 50 and 70. We can interpret this as some hospitals having conducting a very high number of cultures on patients without signs or symptoms of hospital-acquired infection.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Table showing descriptive statistics of Culture Variable"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # table of descriptive stats for the Culture variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Culture
@@ -243,7 +243,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, digits = 2)
+kable(st.tbl, digits = 2, caption = "Culture Variable Descriptive Statistics")
 ```
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Culture Variable, with Density Curve Overlaid"  }
@@ -263,7 +263,7 @@ The descriptive statistics table "Xray Descriptive Statistics" reveals that the 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Table showing descriptive statistics of Xray Variable"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # table of descriptive stats for the Xray variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Xray
@@ -274,7 +274,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, digits = 2)
+kable(st.tbl, digits = 2, caption = "Xray Variable Descriptive Statistics")
 ```
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Xray Variable, with Density Curve Overlaid"}
@@ -293,7 +293,7 @@ The distribution of Beds from the histogram is skewed to the right, meaning ther
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Table showing descriptive statistics of Beds Variable"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # table of descriptive stats for the Beds variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Beds
@@ -304,7 +304,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, digits = 2)
+kable(st.tbl, digits = 2, caption = "Beds Variable Descriptive Statistics")
 ```
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Beds Variable, with Density Curve Overlaid"  }
@@ -323,7 +323,7 @@ From the table "Hospitals by Medical School Affiliation" and the bar chart "Bar 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Table showing descriptive statistics of MedSchool Variable"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 counts <- table(infection.df$MedSchool)
 
 st.tbl <- data.frame(
@@ -332,7 +332,7 @@ st.tbl <- data.frame(
   Percent = 100 * as.numeric(counts) / sum(counts)
 )
 
-kable(st.tbl, digits = 2, row.names = FALSE)
+kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Medical School Affiliation")
 ```
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Bar Chart of the MedSchool Variable"}
@@ -352,7 +352,7 @@ From the table "Hospitals by Geographic Region" and the bar chart "Bar Chart of 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Table showing descriptive statistics of Region Variable"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 region <- factor(
   infection.df$Region,
   levels = c("1", "2", "3", "4"),
@@ -367,7 +367,7 @@ st.tbl <- data.frame(
   Percent = 100 * as.numeric(counts) / sum(counts)
 )
 
-kable(st.tbl, digits = 2, row.names = FALSE)
+kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Geographic Region")
 ```
 
 ```{r, echo = FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Bar Chart of the Region Variable, with Density Curve Overlaid"}
@@ -388,7 +388,7 @@ The distribution of Census is skewed to the right, with outliers between the bou
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Table showing descriptive statistics of Census Variable"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # table of descriptive stats for the Census variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Census
@@ -399,7 +399,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, digits = 2)
+kable(st.tbl, digits = 2, caption = "Census Variable Descriptive Statistics")
 ```
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Census Variable, with Density Curve Overlaid"}
@@ -419,7 +419,7 @@ The distribution of Nurses is skewed to the right, with outliers between the bou
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Table showing descriptive statistics of Nurses Variable"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # table of descriptive stats for the Nurses variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Nurses
@@ -430,7 +430,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, digits = 2)
+kable(st.tbl, digits = 2, caption = "Nurses Variable Descriptive Statistics")
 ```
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Nurses Variable, with Density Curve Overlaid"}
@@ -449,7 +449,7 @@ The histogram of Facilities reveals a bimodal distribution, with two peaks: one 
 
 The density curve fits the distribution pretty well.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Table showing descriptive statistics of Facilities Variable"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # table of descriptive stats for the Facilities variable
 statistic <- c("Min", "Mean","Median", "Max", "StdDev")
 data<-infection.df$Facilities
@@ -460,7 +460,7 @@ md<-median(data)
 std<-round(sd(data), 2)
 value <- c(mn,avg,md,mx,std)
 st.tbl <- cbind(statistic, value)
-kable(st.tbl, digits = 2, caption="Facilities Descriptive Statistics")
+kable(st.tbl, digits = 2, caption="Facilities Variable Descriptive Statistics")
 ```
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Facilities Variable, with Density Curve Overlaid"}
@@ -497,7 +497,7 @@ Using a significance level of 0.05, the overall F-test was statistically signifi
 ## Model 1:
 For our first model, we will include all ten predictors.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap= "Model 1 Fit Regression Coefficients & Significance for all Predictors"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 #Extracting StdError and P-values
 coefficients <- model.summary$coefficients
 coef.tbl <- data.frame(
@@ -511,8 +511,7 @@ kable(
   coef.tbl,
   digits = 2,
   col.names = c("Predictor", "Coefficient", "Standard Error", "P-value"),
-  #caption = "Regression Coefficients and Significance"
-)
+  caption = "Model 1 Fit Regression Coefficients & Significance for all Predictors")
 ```
 Holding other predictors constant, we find that from the table "Model 1 Fit Regression Coefficients & Significance for all Predictors", the predictors Stay, Culture, Xray, Facilities, MedSchoolNo, and Region 1 (Northeast) to Region 4 (West) comparison were significant at the 0.05 level as each p-value was less than 0.05. 
 
@@ -524,7 +523,7 @@ Hospitals without medical school affiliations had infection risk 0.66 percentage
 
 Age, Beds, Census, Nurses, and the remaining regional comparisons were not significant. Culture had the smallest p-value, providing the strongest evidence of an association. 
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Model 1 Regression Model Fit Table"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 #Overall fit
 f.stat <- model.summary$fstatistic
 
@@ -547,13 +546,13 @@ fit.tbl <- data.frame(
 kable(
   fit.tbl,
   row.names = FALSE,
-  #caption = "Overall Regression Model Fit"
+  caption = "Model 1 Overall Regression Model Fit Table"
 )
 ```
 
 The table "Model 1 Regression Model Fit Table" reveals that Model 1 explained 58.54% of the variation in infection risk across hospitals. After accounting for the predictor coefficients, the adjusted R-squared was 53.56%. The overall F-test was statistically significant (F-statistic is 11.76; p-value is less than 0.01 which is less than the chosen significance level of 0.05); at least one predictor was associated with infection risk.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap="Model 1 Multicollinearity Assessment Table, showing VIF values for Predictors"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 model.vif <- vif(infection.lm)
 
 vif.tbl <- data.frame(
@@ -567,7 +566,7 @@ kable(
   digits = 2,
   row.names = FALSE,
   col.names = c("Predictor", "VIF"),
-  #caption = "Multicollinearity Assessment"
+  caption = "Model 1 Multicollinearity Assessment Table"
 )
 ```
 The table "Model 1 Multicollinearity Assessment Table, showing VIF values for Predictors" reveals that the multicollinearity assessment identified high Variance Inflation Factor (VIF) values for Beds (35.74), Census (37.77), and Nurses (7.47). These values indicate substantial overlap between these predictors and other predictors in the model. All remaining values were below the threshold(5).
@@ -603,7 +602,7 @@ qqline(
 ```
 The figure "Model 1 Q-Q Plot" reveals that most residuals follow the red reference line closely. There are some points off the reference line at tails, especially where the largest positive residuals (Normal Quantiles greater than about 1.5+) lie above the line. This suggests residual normality, although the upper tail shows some deviation from the normal distribution.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap="Model 1 Breusch-Pagan Test"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 bp.result <- bptest(infection.lm)
 
 bp.tbl <- data.frame(
@@ -616,7 +615,7 @@ kable(
   bp.tbl,
   row.names = FALSE,
   col.names = c("Test Statistic", "Degrees of Freedom", "P-value"),
-  #caption = "Breusch-Pagan Test for Nonconstant Variance"
+  caption = "Model 1 Breusch-Pagan Test for Nonconstant Variance"
 )
 ```
 The "Model 1 Breusch-Pagan Test" table reveals that a conducted Breusch-Pagan Test produced a test statistic of 14.01 with 12 degrees of freedom and a p-value of 0.30. At the 0.05 significance level, we fail to reject (and thus accept) the null hypothesis of homoscedasticity (constant error variance). The test provides insufficient evidence of heteroscedasticity (nonconstant error variance), consistent with the absence of a funnel pattern in the residual plot.
@@ -624,7 +623,7 @@ The "Model 1 Breusch-Pagan Test" table reveals that a conducted Breusch-Pagan Te
 ## Model 2: 
 For our second model, we will only include "Stay", "Culture", "Xray", "MedSchool", and "Region", and "Facilities". This model was chosen using stepwise selection.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap= "Model 2: Fit Regression Coefficients & Significance for Stepwise Selected Predictors"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 #Extracting StdError and P-values
 coefficients <- model2.summary$coefficients
 coef.tbl <- data.frame(
@@ -638,7 +637,7 @@ kable(
   coef.tbl,
   digits = 2,
   col.names = c("Predictor", "Coefficient", "Standard Error", "P-value"),
-  #caption = "Regression Coefficients and Significance"
+  caption = "Model 2: Fit Regression Coefficients & Significance for Stepwise Selected Predictors"
 )
 ```
 From the table "Model 2: Fit Regression Coefficients & Significance for Stepwise Selected Predictors", if we holding the other included predictors constant, Stay, Culture, Xray, Facilities, and the Region1 (Northeast) to Region4 (West) comparison were significant at the 0.05 level. 
@@ -647,7 +646,7 @@ Each additional day of average stay was associated with a 0.27 percent point inc
 
 West hospitals (Hospitals in the West Region) had estimated infection risk of about 1.11 percent points for infection risk higher than Northeast hospitals (Hospitals in the Northeast Region). Medical school affiliation was not significant at the 0.05 level (p = 0.09), nor were the North Central to Northeast and South to Northeast region comparisons.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Model 2 Regression Model Fit Table"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 #Overall fit
 f.stat <- model2.summary$fstatistic
 
@@ -670,12 +669,12 @@ fit.tbl <- data.frame(
 kable(
   fit.tbl,
   row.names = FALSE,
-  #caption = "Overall Regression Model Fit"
+  caption = "Model 2 Overall Regression Model Fit Table"
 )
 ```
 From the "Model 2 Regression Model Fit Table", Model 2 reveals 57.12% of the variation in infection risk, with an adjusted R-squared of 53.82%. The overall F-test was statistically significant (F = 17.32, p < 0.01); at least one included predictor was associated with infection risk.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Model 2 Multicollinearity Assessment Table, showing VIF values for Predictors"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 model.vif <- vif(infection.step)
 
 vif.tbl <- data.frame(
@@ -689,7 +688,7 @@ kable(
   digits = 2,
   row.names = FALSE,
   col.names = c("Predictor", "VIF"),
-  #caption = "Multicollinearity Assessment"
+  caption = "Model 2 Multicollinearity Assessment Table"
 )
 ```
 The displayed VIF values in "Model 2 Multicollinearity Assessment Table, showing VIF values for Predictors" ranged from 1.36 to 1.67. Compared with Model 1, these results indicate reduced multicollinearity and less inflation of coefficient variances from overlapping predictors.
@@ -725,7 +724,7 @@ qqline(
 
 In "Model 2 Q-Q Plot", the residuals generally follow the normal reference line, with minor departures in the tails. The plot supports approximate residual normality.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap = "Model 2 Breusch-Pagan Test"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 bp.result <- bptest(infection.step)
 
 bp.tbl <- data.frame(
@@ -738,7 +737,7 @@ kable(
   bp.tbl,
   row.names = FALSE,
   col.names = c("Test Statistic", "Degrees of Freedom", "P-value"),
-  #caption = "Breusch-Pagan Test for Nonconstant Variance"
+  caption = "Model 2 Breusch-Pagan Test for Nonconstant Variance"
 )
 ```
 The Breusch–Pagan test produced a statistic of 6.83 with 8 degrees of freedom and a p-value of 0.56. At the 0.05 significance level, we do not reject homoscedasticity (constant error variance). There is insufficient evidence of heteroscedasticity (nonconstant variance).
@@ -787,7 +786,7 @@ We evaluated both models using 10-fold cross-validation repeated three times. In
 
 We measured prediction error using root mean squared error (RMSE), expressed in percentage points of infection risk. Lower RMSE indicates more accurate predictions. We summarized performance using the RMSE and its standard deviation across the validation samples.
 
-```{r, echo=FALSE, out.width="50%", fig.cap = "Repeated Cross-Validation Prediction Performance Table"}
+```{r, echo=FALSE, out.width="50%"}
 cv.summary <- data.frame(
   Model = c("Model 1: Full", "Model 2: Reduced"),
   RMSE = c(
@@ -805,7 +804,7 @@ kable(
   digits = 2,
   row.names = FALSE,
   col.names = c("Model", "RMSE", "RMSE Standard Deviation"),
-  #caption = "Repeated Cross-Validation Prediction Performance"
+  caption = "Model 2 Repeated Cross-Validation Prediction Performance"
 )
 ```
 Model 1 had a mean RMSE of 99 percentage points, compared with 95 for Model 2. Their RMSE standard deviations were 0.19 and 0.16, respectively. Model 2 had the lower average prediction error and showed more consistent performance across validation samples.

@@ -2,7 +2,7 @@
 title: "The Effects of Patient and Hospital Factors on Hospital-Acquired Infection
   Risk."
 author: "Austin Lio, Prithvi Namburi"
-date: "2026-10-24"
+date: "2026-10-31"
 output:
   pdf_document:
     number_sections: true
@@ -114,32 +114,34 @@ Our first variable to explore is our outcome variable infection risk, labeled In
 
 According to the descriptive statistics table "Infection Risk (InfctRsk) Descriptive Statistics", the minimum average infection risk is 1.3% and the average maximum infection risk is 7.8%. The data centers around a mean of 4.35% and the median average infection risk is 4.4%.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%",}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
+# Calculate statistics for the infection risk variable
+data  <- infection.df$InfctRsk
+mn    <- min(data)
+mx    <- max(data)
+avg   <- round(mean(data), 2)
+md    <- median(data)
+std   <- round(sd(data), 2)
 
-# table of descriptive stats for the inflection risk
-statistic <- c("Min", "Mean","Median", "Max", "StdDev")
-data<-infection.df$InfctRsk
-#quantiles<-quantile(data)
-# extracting the number with as.numeric because quantiles[2] is a named number.
-#second.quant<-as.numeric(quantiles[2])
-#fourth.quant<-as.numeric(quantiles[4])
-mn<-min(data)
-mx<-max(data)
-avg<-round(mean(data), 2)
-md<-median(data)
-std<-round(sd(data), 2)
-#value <- c(mn,second.quant,avg,md,fourth.quant,mx,std)
-value <- c(mn,avg,md,mx,std)
-st.tbl <- cbind(statistic, value)
-kable(st.tbl, caption="Infection Risk (InfctRsk) Descriptive Statistics")
+# Create a horizontal data frame
+st.tbl <- data.frame(
+  Min    = mn,
+  Mean   = avg,
+  Median = md,
+  Max    = mx,
+  StdDev = std
+)
 
+# Render the horizontal table
+kable(st.tbl, caption = "Infection Risk (InfctRsk) Descriptive Statistics")
 ```
+
 
 To further explore the infection risk (InfctRsk) variable, a histogram showing the distribution of the variable is constructed. This displays an approximately normal distribution, with one peak. 
 
 The density curve fits the data pretty well.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap= "Histogram showing distribution of InfctRsk Variable, with Density Curve Overlaid"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap= "Histogram showing distribution of InfctRsk Variable, with Density Curve Overlaid"}
 hist(infection.df$InfctRsk, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
      xlab = "Infection Risk (%)",
@@ -159,25 +161,30 @@ We start with the variable Stay, which measures average length of patient stay, 
 
 The table "Stay Descriptive Statistics" for the variable Stay tell us that the minimum average length that patients stayed at a hospital is 6.7 days, and the maximum average length that patients stayed at a hospital is 19.56 days. The largest cluster of hospitals have patients stay for an average length of 9.65 days. 
 
-The histogram's distribution is skewed to the right, with the average length of Stay across most hospitals is less than two weeks. The largest cluster of hospitals maintains an average patient stay of 8 to 10 days. Based on the skewness and outliers, we can see that there are few hospitals that have much longer average stays, ranging from 16 to 20 days.
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap= "Table showing descriptive statistics of Stay Variable"}
+# Calculate statistics
+data  <- infection.df$Stay
+mn    <- min(data)
+mx    <- max(data)
+avg   <- round(mean(data), 2)
+md    <- median(data)
+std   <- round(sd(data), 2)
 
-The density curve fits the histogram's distribution pretty well.
+# Create a horizontal data frame instead of a vertical matrix
+st.tbl <- data.frame(
+  Min    = mn,
+  Mean   = avg,
+  Median = md,
+  Max    = mx,
+  StdDev = std
+)
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "50%",fig.cap= "Table showing descriptive statistics of Stay Variable"}
-# table of descriptive stats for the Age variable
-statistic <- c("Min", "Mean","Median", "Max", "StdDev")
-data<-infection.df$Stay
-mn<-min(data)
-mx<-max(data)
-avg<-round(mean(data), 2)
-md<-median(data)
-std<-round(sd(data), 2)
-value <- c(mn,avg,md,mx,std)
-st.tbl <- cbind(statistic, value)
+# Render the horizontal table
 kable(st.tbl, caption = "Stay Variable Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap= "Histogram showing distribution of Stay Variable, with Density Curve Overlaid"}
+
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap= "Histogram showing distribution of Stay Variable, with Density Curve Overlaid"}
 
 hist(infection.df$Stay, freq=FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
@@ -185,6 +192,10 @@ hist(infection.df$Stay, freq=FALSE, # freq = FALSE for density scale on y-axis
      ylab = "Density")
 lines(density(infection.df$Stay), col = "blue", lwd = 2)
 ```
+The histogram's distribution is skewed to the right, with the average length of Stay across most hospitals is less than two weeks. The largest cluster of hospitals maintains an average patient stay of 8 to 10 days. Based on the skewness and outliers, we can see that there are few hospitals that have much longer average stays, ranging from 16 to 20 days.
+
+The density curve fits the histogram's distribution pretty well.
+
 
 ### The Variable Age
 
@@ -195,20 +206,29 @@ The histogram for the variable Age reveals an approximately normal distribution,
 The density curve fits the histogram's distribution well, confirming a normal distribution of the variable Age.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
-# table of descriptive stats for the Age variable
-statistic <- c("Min", "Mean","Median", "Max", "StdDev")
-data<-infection.df$Age
-mn<-min(data)
-mx<-max(data)
-avg<-round(mean(data), 2)
-md<-median(data)
-std<-round(sd(data), 2)
-value <- c(mn,avg,md,mx,std)
-st.tbl <- cbind(statistic, value)
+# Calculate statistics for the Age variable
+data  <- infection.df$Age
+mn    <- min(data)
+mx    <- max(data)
+avg   <- round(mean(data), 2)
+md    <- median(data)
+std   <- round(sd(data), 2)
+
+# Create a horizontal data frame
+st.tbl <- data.frame(
+  Min    = mn,
+  Mean   = avg,
+  Median = md,
+  Max    = mx,
+  StdDev = std
+)
+
+# Render the horizontal table
 kable(st.tbl, digits = 2, caption = "Age Variable Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Age Variable, with Density Curve Overlaid"  }
+
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Histogram showing distribution of Age Variable, with Density Curve Overlaid"  }
 
 hist(infection.df$Age, freq=FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
@@ -233,20 +253,29 @@ The histogram distribution is skewed to the right, with an average between 10 an
 The density curve fits the distribution pretty well. Additionally with the right-skewed distribution, there are outliers located between the bounds 50 and 70. We can interpret this as some hospitals having conducting a very high number of cultures on patients without signs or symptoms of hospital-acquired infection.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
-# table of descriptive stats for the Culture variable
-statistic <- c("Min", "Mean","Median", "Max", "StdDev")
-data<-infection.df$Culture
-mn<-min(data)
-mx<-max(data)
-avg<-round(mean(data), 2)
-md<-median(data)
-std<-round(sd(data), 2)
-value <- c(mn,avg,md,mx,std)
-st.tbl <- cbind(statistic, value)
+# Calculate statistics for the Culture variable
+data  <- infection.df$Culture
+mn    <- min(data)
+mx    <- max(data)
+avg   <- round(mean(data), 2)
+md    <- median(data)
+std   <- round(sd(data), 2)
+
+# Create a horizontal data frame
+st.tbl <- data.frame(
+  Min    = mn,
+  Mean   = avg,
+  Median = md,
+  Max    = mx,
+  StdDev = std
+)
+
+# Render the horizontal table
 kable(st.tbl, digits = 2, caption = "Culture Variable Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Culture Variable, with Density Curve Overlaid"  }
+
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Histogram showing distribution of Culture Variable, with Density Curve Overlaid"  }
 hist(infection.df$Culture, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
      xlab = "Ratio of Cultures to Number of Patients without Symptoms",
@@ -264,20 +293,29 @@ The descriptive statistics table "Xray Descriptive Statistics" reveals that the 
 The density curve fits the distribution pretty well.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
-# table of descriptive stats for the Xray variable
-statistic <- c("Min", "Mean","Median", "Max", "StdDev")
-data<-infection.df$Xray
-mn<-min(data)
-mx<-max(data)
-avg<-round(mean(data), 2)
-md<-median(data)
-std<-round(sd(data), 2)
-value <- c(mn,avg,md,mx,std)
-st.tbl <- cbind(statistic, value)
+# Calculate statistics for the Xray variable
+data  <- infection.df$Xray
+mn    <- min(data)
+mx    <- max(data)
+avg   <- round(mean(data), 2)
+md    <- median(data)
+std   <- round(sd(data), 2)
+
+# Create a horizontal data frame
+st.tbl <- data.frame(
+  Min    = mn,
+  Mean   = avg,
+  Median = md,
+  Max    = mx,
+  StdDev = std
+)
+
+# Render the horizontal table
 kable(st.tbl, digits = 2, caption = "Xray Variable Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Xray Variable, with Density Curve Overlaid"}
+
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Histogram showing distribution of Xray Variable, with Density Curve Overlaid"}
 hist(infection.df$Xray, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
      xlab = "Ratio of X-rays performed on patients without symptoms of pneumonia",
@@ -289,31 +327,41 @@ lines(density(infection.df$Xray), col = "blue", lwd = 2)
 
 The variable Beds measures the average number of beds in a hospital during study period.
 
-The distribution of Beds from the histogram is skewed to the right, meaning there are outliers in the 600+ bed range. The minimum number of beds is 29 beds at one hospital, and the maximum number of beds is 835, which falls outside of our scale in the histogram. The mean number of beds is 252.17 beds, or about 252 beds, and the median number of beds is 186.
 
-The density curve fits the distribution pretty well.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
-# table of descriptive stats for the Beds variable
-statistic <- c("Min", "Mean","Median", "Max", "StdDev")
-data<-infection.df$Beds
-mn<-min(data)
-mx<-max(data)
-avg<-round(mean(data), 2)
-md<-median(data)
-std<-round(sd(data), 2)
-value <- c(mn,avg,md,mx,std)
-st.tbl <- cbind(statistic, value)
+# Calculate statistics for the Beds variable
+data  <- infection.df$Beds
+mn    <- min(data)
+mx    <- max(data)
+avg   <- round(mean(data), 2)
+md    <- median(data)
+std   <- round(sd(data), 2)
+
+# Create a horizontal data frame
+st.tbl <- data.frame(
+  Min    = mn,
+  Mean   = avg,
+  Median = md,
+  Max    = mx,
+  StdDev = std
+)
+
+# Render the horizontal table
 kable(st.tbl, digits = 2, caption = "Beds Variable Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Beds Variable, with Density Curve Overlaid"  }
+
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Histogram showing distribution of Beds Variable, with Density Curve Overlaid"  }
 hist(infection.df$Beds, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
      xlab = "Average Number of Beds",
      ylab = "Density")
 lines(density(infection.df$Beds), col = "blue", lwd = 2)
 ```
+The distribution of Beds from the histogram is skewed to the right, meaning there are outliers in the 600+ bed range. The minimum number of beds is 29 beds at one hospital, and the maximum number of beds is 835, which falls outside of our scale in the histogram. The mean number of beds is 252.17 beds, or about 252 beds, and the median number of beds is 186.
+
+The density curve fits the distribution pretty well.
 
 ### MedSchool
 
@@ -335,7 +383,7 @@ st.tbl <- data.frame(
 kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Medical School Affiliation")
 ```
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Bar Chart of the MedSchool Variable"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Bar Chart of the MedSchool Variable"}
 # table of descriptive stats for the MedSchool variable
 barplot(table(infection.df$MedSchool),
         main = "",
@@ -370,7 +418,7 @@ st.tbl <- data.frame(
 kable(st.tbl, digits = 2, row.names = FALSE, caption = "Hospitals by Geographic Region")
 ```
 
-```{r, echo = FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Bar Chart of the Region Variable, with Density Curve Overlaid"}
+```{r, echo = FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Bar Chart of the Region Variable, with Density Curve Overlaid"}
 # table of descriptive stats for the Region variable
 barplot(table(region),
         main = "",
@@ -389,20 +437,29 @@ The distribution of Census is skewed to the right, with outliers between the bou
 The density curve fits the distribution pretty well.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
-# table of descriptive stats for the Census variable
-statistic <- c("Min", "Mean","Median", "Max", "StdDev")
-data<-infection.df$Census
-mn<-min(data)
-mx<-max(data)
-avg<-round(mean(data), 2)
-md<-median(data)
-std<-round(sd(data), 2)
-value <- c(mn,avg,md,mx,std)
-st.tbl <- cbind(statistic, value)
+# Calculate statistics for the Census variable
+data  <- infection.df$Census
+mn    <- min(data)
+mx    <- max(data)
+avg   <- round(mean(data), 2)
+md    <- median(data)
+std   <- round(sd(data), 2)
+
+# Create a horizontal data frame
+st.tbl <- data.frame(
+  Min    = mn,
+  Mean   = avg,
+  Median = md,
+  Max    = mx,
+  StdDev = std
+)
+
+# Render the horizontal table
 kable(st.tbl, digits = 2, caption = "Census Variable Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Census Variable, with Density Curve Overlaid"}
+
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Histogram showing distribution of Census Variable, with Density Curve Overlaid"}
 hist(infection.df$Census, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
      xlab = "Average Number of Patients in Hospital Per Day",
@@ -420,20 +477,29 @@ The distribution of Nurses is skewed to the right, with outliers between the bou
 The density curve fits the distribution pretty well.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
-# table of descriptive stats for the Nurses variable
-statistic <- c("Min", "Mean","Median", "Max", "StdDev")
-data<-infection.df$Nurses
-mn<-min(data)
-mx<-max(data)
-avg<-round(mean(data), 2)
-md<-median(data)
-std<-round(sd(data), 2)
-value <- c(mn,avg,md,mx,std)
-st.tbl <- cbind(statistic, value)
+# Calculate statistics for the Nurses variable
+data  <- infection.df$Nurses
+mn    <- min(data)
+mx    <- max(data)
+avg   <- round(mean(data), 2)
+md    <- median(data)
+std   <- round(sd(data), 2)
+
+# Create a horizontal data frame
+st.tbl <- data.frame(
+  Min    = mn,
+  Mean   = avg,
+  Median = md,
+  Max    = mx,
+  StdDev = std
+)
+
+# Render the horizontal table
 kable(st.tbl, digits = 2, caption = "Nurses Variable Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Nurses Variable, with Density Curve Overlaid"}
+
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Histogram showing distribution of Nurses Variable, with Density Curve Overlaid"}
 hist(infection.df$Nurses, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
      xlab = "Average Number of Nurses",
@@ -450,20 +516,29 @@ The histogram of Facilities reveals a bimodal distribution, with two peaks: one 
 The density curve fits the distribution pretty well.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
-# table of descriptive stats for the Facilities variable
-statistic <- c("Min", "Mean","Median", "Max", "StdDev")
-data<-infection.df$Facilities
-mn<-min(data)
-mx<-max(data)
-avg<-round(mean(data), 2)
-md<-median(data)
-std<-round(sd(data), 2)
-value <- c(mn,avg,md,mx,std)
-st.tbl <- cbind(statistic, value)
-kable(st.tbl, digits = 2, caption="Facilities Variable Descriptive Statistics")
+# Calculate statistics for the Facilities variable
+data  <- infection.df$Facilities
+mn    <- min(data)
+mx    <- max(data)
+avg   <- round(mean(data), 2)
+md    <- median(data)
+std   <- round(sd(data), 2)
+
+# Create a horizontal data frame
+st.tbl <- data.frame(
+  Min    = mn,
+  Mean   = avg,
+  Median = md,
+  Max    = mx,
+  StdDev = std
+)
+
+# Render the horizontal table
+kable(st.tbl, digits = 2, caption = "Facilities Variable Descriptive Statistics")
 ```
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Histogram showing distribution of Facilities Variable, with Density Curve Overlaid"}
+
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Histogram showing distribution of Facilities Variable, with Density Curve Overlaid"}
 hist(infection.df$Facilities, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
      xlab = "Facilities and Services Provided (% out of 35)",
@@ -497,6 +572,11 @@ Using a significance level of 0.05, the overall F-test was statistically signifi
 ## Model 1:
 For our first model, we will include all ten predictors.
 
+Holding other predictors constant, we find that from the table "Model 1 Fit Regression Coefficients & Significance for all Predictors", the predictors Stay, Culture, Xray, Facilities, MedSchoolNo, and Region 1 (Northeast) to Region 4 (West) comparison were significant at the 0.05 level as each p-value was less than 0.05. 
+
+Note that Region1 (Northeast) is not in the table to prevent perfect multicollinearity. Instead, Region1 is a baseline to compare each region (i.e. Region2, Region3, and Region4) against it. For example, region 4's values (e.g. coefficient of 1.15) is the expected difference in the outcome between Region4 and Region1. This is also seen with MedSchool, where MedSchoolYes (Hospitals with an associated medical school) is the baseline, and MedSchoolNo (Hospitals without an associated medical school) is compared against MedSchoolYes.
+
+
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 #Extracting StdError and P-values
 coefficients <- model.summary$coefficients
@@ -513,9 +593,7 @@ kable(
   col.names = c("Predictor", "Coefficient", "Standard Error", "P-value"),
   caption = "Model 1 Fit Regression Coefficients & Significance for all Predictors")
 ```
-Holding other predictors constant, we find that from the table "Model 1 Fit Regression Coefficients & Significance for all Predictors", the predictors Stay, Culture, Xray, Facilities, MedSchoolNo, and Region 1 (Northeast) to Region 4 (West) comparison were significant at the 0.05 level as each p-value was less than 0.05. 
 
-Note that Region1 (Northeast) is not in the table to prevent perfect multicollinearity. Instead, Region1 is a baseline to compare each region (i.e. Region2, Region3, and Region4) against it. For example, region 4's values (e.g. coefficient of 1.15) is the expected difference in the outcome between Region4 and Region1. This is also seen with MedSchool, where MedSchoolYes (Hospitals with an associated medical school) is the baseline, and MedSchoolNo (Hospitals without an associated medical school) is compared against MedSchoolYes.
 
 Each additional day increase (or one unit increase) in the variable Stay is associated with a 0.24 percent increase in infection risk. One unit increases in Culture is associated with an increase of approximately 0.054 percent in infection risk, as well as a one unit increase in Xray leads to an approximately .011553 percent increase of infection risk. A one percent point increase in Facilities was associated with an approximate 0.021 percentage-point infection risk increase.
 
@@ -552,6 +630,8 @@ kable(
 
 The table "Model 1 Regression Model Fit Table" reveals that Model 1 explained 58.54% of the variation in infection risk across hospitals. After accounting for the predictor coefficients, the adjusted R-squared was 53.56%. The overall F-test was statistically significant (F-statistic is 11.76; p-value is less than 0.01 which is less than the chosen significance level of 0.05); at least one predictor was associated with infection risk.
 
+The table "Model 1 Multicollinearity Assessment Table, showing VIF values for Predictors" reveals that the multicollinearity assessment identified high Variance Inflation Factor (VIF) values for Beds (35.74), Census (37.77), and Nurses (7.47). These values indicate substantial overlap between these predictors and other predictors in the model. All remaining values were below the threshold(5).
+
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 model.vif <- vif(infection.lm)
 
@@ -569,9 +649,8 @@ kable(
   caption = "Model 1 Multicollinearity Assessment Table"
 )
 ```
-The table "Model 1 Multicollinearity Assessment Table, showing VIF values for Predictors" reveals that the multicollinearity assessment identified high Variance Inflation Factor (VIF) values for Beds (35.74), Census (37.77), and Nurses (7.47). These values indicate substantial overlap between these predictors and other predictors in the model. All remaining values were below the threshold(5).
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap="Model 1 Fitted vs. Residuals Plot"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap="Model 1 Fitted vs. Residuals Plot"}
 plot(
   fitted(infection.lm),
   residuals(infection.lm),
@@ -583,9 +662,9 @@ plot(
 
 abline(h = 0, col = "red", lty = 2)
 ```
-The figure "Model 1 Fitted vs. Residuals Plot" shows residuals distributed on both sides of zero, without a pronounced funnel-shaped pattern. A few large residuals are also present. The plot therefore suggests possible departures from a linear relationship.
+The figure "Model 1 Fitted vs. Residuals Plot" shows residuals as points distributed randomly on both sides of zero, without a pronounced funnel-shaped pattern. They are distributed above and below the red-dotted line at zero. A few large residuals are also present. The plot therefore suggests possible departures from a linear relationship. We don't see any trends in the residual points or in the red dotted line. 
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Model 1 Q-Q Plot"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Model 1 Q-Q Plot"}
 qqnorm(
   residuals(infection.lm),
   main = "",
@@ -692,7 +771,7 @@ kable(
 )
 ```
 The displayed VIF values in "Model 2 Multicollinearity Assessment Table, showing VIF values for Predictors" ranged from 1.36 to 1.67. Compared with Model 1, these results indicate reduced multicollinearity and less inflation of coefficient variances from overlapping predictors.
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Model 2 Fitted vs. Residuals Plot"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Model 2 Fitted vs. Residuals Plot"}
 plot(
   fitted(infection.step),
   residuals(infection.step),
@@ -706,7 +785,7 @@ abline(h = 0, col = "red", lty = 2)
 ```
 In "Model 2 Fitted vs. Residuals Plot", the residuals appear on both sides of zero. However, negative residuals at the lowest and highest fitted values suggest possible curvature. The reduced model therefore potentially departures from a linear relationship.
 
-```{r, echo=FALSE, fig.pos = 'H', out.width = "80%", fig.cap = "Model 2 Q-Q Plot"}
+```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Model 2 Q-Q Plot"}
 qqnorm(
   residuals(infection.step),
   main = "",

@@ -565,7 +565,9 @@ model2.summary <- summary(infection.step)
 ```
 
 ## Hypothesis
-The null hypothesis is that all predictor coefficients, excluding the intercept, equal zero. This means that the predictors, such as Beds or Age, have zero effect on the response variable, which is the average probability of acquiring an infection in the hospital (InfctRsk). The alternative hypothesis is that at least one predictor coefficient is nonzero. This would mean that there is a predictor that has an effect on the average probability of acquiring an infection in the hospital, and it could be increasing or decreasing the probability of infection risk.
+We hypothesize that hospitals with longer average patient stays have higher infection risk, after accounting for the other patient and hospital characteristics included in the model.
+
+Our null hypothesis is that all predictor coefficients, excluding the intercept, equal zero. This means that the predictors, such as Beds or Age, have zero effect on the response variable, which is the average probability of acquiring an infection in the hospital (InfctRsk). Our alternative hypothesis is that at least one predictor coefficient is nonzero. This would mean that there is a predictor that has an effect on the average probability of acquiring an infection in the hospital, and it could be increasing or decreasing the probability of infection risk.
 
 Using a significance level of 0.05, the overall F-test was statistically significant, with an F-statistic of 11.76 and a p-value of 1.963e-14. We find the p-value is less than the significance level, as 1.963e-14 is less than .05. Therefore, we reject the null hypothesis and conclude that at least one of our predictors has an effect on the average probability of hospital infection risk.
 
@@ -889,4 +891,8 @@ kable(
 Model 1 had a mean RMSE of 99 percentage points, compared with 95 for Model 2. Their RMSE standard deviations were 0.19 and 0.16, respectively. Model 2 had the lower average prediction error and showed more consistent performance across validation samples.
 
 # Summary and Conclusions
+Both regression models identified associations between patient and hospital characteristics and hospital-acquired infection risk. Model 1 included all ten predictors and explained 58.54% of the variation in infection risk, with an adjusted R-squared of 53.56%. Model 2 retained six predictors and explained 57.12% of the variation, with a slightly higher adjusted R-squared of 53.82%. Although their explanatory performance was similar, Model 2 had much less multicollinearity. The repeated cross-validation results also showed lower average prediction error and less variability in prediction error for Model 2. We therefore selected Model 2 as our preferred model.
 
+Both models supported our hypothesis that longer average patient stays are associated with higher infection risk. In Model 2, each additional day of average stay was associated with a 0.27 percentage-point increase in infection risk, holding the other included predictors constant. Higher culture and X-ray testing ratios, higher availability of facilities and services, and being located in the West rather than the Northeast were also significantly associated with higher infection risk. These findings suggest that both patient and hospital characteristics help explain differences in infection risk across hospitals.
+
+Several limitations affect these conclusions. The data is observational, so the associations do not establish cause and effect. Each observation represents a hospital, so the results cannot directly describe an individual patient’s risk. Unmeasured factors may explain some of the observed relationships. Selecting the reduced model using the full dataset before cross-validation may make its estimated prediction performance optimistic.

@@ -159,8 +159,6 @@ The two "Patient" factors in our dataset are Stay and Age. We explored the distr
 
 We start with the variable Stay, which measures average length of patient stay, in days, at a hospital. 
 
-The table "Stay Descriptive Statistics" for the variable Stay tell us that the minimum average length that patients stayed at a hospital is 6.7 days, and the maximum average length that patients stayed at a hospital is 19.56 days. The largest cluster of hospitals have patients stay for an average length of 9.65 days. 
-
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.cap= "Table showing descriptive statistics of Stay Variable"}
 # Calculate statistics
 data  <- infection.df$Stay
@@ -183,6 +181,8 @@ st.tbl <- data.frame(
 kable(st.tbl, caption = "Stay Variable Descriptive Statistics")
 ```
 
+The table "Stay Descriptive Statistics" for the variable Stay tell us that the minimum average length that patients stayed at a hospital is 6.7 days, and the maximum average length that patients stayed at a hospital is 19.56 days. The largest cluster of hospitals have patients stay for an average length of 9.65 days. 
+
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap= "Histogram showing distribution of Stay Variable, with Density Curve Overlaid"}
 
@@ -202,8 +202,6 @@ The density curve fits the histogram's distribution pretty well.
 The variable Age measures the average patient age is in years.
 
 The histogram for the variable Age reveals an approximately normal distribution, with one peak between 50 and 55 years. This shape is supported by the corresponding descriptive statistics table "Age Descriptive Statistics", which prove that the mean average patient age is 53.23 years old. The minimum average patient age is in the range of 35 and 40 years, and the corresponding descriptive statistics reveal an actual minimum of 38.8 years. Additionally, the histogram reveals a maximum average age at one hospital is in the range of 65 and 70 years, with the descriptive statistics revealing the actual maximum average age to be 65.9 years old
-
-The density curve fits the histogram's distribution well, confirming a normal distribution of the variable Age.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # Calculate statistics for the Age variable
@@ -237,6 +235,7 @@ hist(infection.df$Age, freq=FALSE, # freq = FALSE for density scale on y-axis
 lines(density(infection.df$Age), col = "blue", lwd = 2)
 ```
 
+The density curve fits the histogram's distribution well, confirming a normal distribution of the variable Age.
 
 ## Hospital Factors
 
@@ -249,8 +248,6 @@ We explore each variable in the following sections.
 The variable Culture measures the ratio of number of cultures (testing a patient's sample for infection-causing microorganisms) performed to number of patients without signs or symptoms of hospital-acquired infection, times 100. For example, if we use the average ratio of number of cultures from this variable of 15.79, that means that for every 100 hospital patients without signs or symptoms of hospital-acquired infection, 15.79 cultures were performed.
 
 The histogram distribution is skewed to the right, with an average between 10 and 20. The descriptive statistics table "Culture Descriptive Statistics" prove this average to be actually 15.79. The minimum ratio of number of cultures is found to be 1.6 (a value fitting between 0 and 10 in the histogram), and the maximum ratio of number of cultures is 60.5 (a value fitting between 60 and 70 in the histogram). 
-
-The density curve fits the distribution pretty well. Additionally with the right-skewed distribution, there are outliers located between the bounds 50 and 70. We can interpret this as some hospitals having conducting a very high number of cultures on patients without signs or symptoms of hospital-acquired infection.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # Calculate statistics for the Culture variable
@@ -283,14 +280,14 @@ hist(infection.df$Culture, freq = FALSE, # freq = FALSE for density scale on y-a
 lines(density(infection.df$Culture), col = "blue", lwd = 2)
 ```
 
+The density curve fits the distribution pretty well. Additionally with the right-skewed distribution, there are outliers located between the bounds 50 and 70. We can interpret this as some hospitals having conducting a very high number of cultures on patients without signs or symptoms of hospital-acquired infection.
+
 ### Xray
 The variable Xray measures the ratio of number of X-rays (taking an image of the body, particularly the chest, to look for conditions such as pneumonia) performed to number of patients without signs or symptoms of pneumonia, times 100.
 
 The distribution of Xray is approximately bimodal as there are two distinct peaks: one between the bounds 80 and 90, and another between the bounds 50 and 60. This potentially indicates that there are two different groups in the dataset. For example, one group could be hospitals taking a lower number of Xrays for patients, and the other group could be taking a high number of Xrays on patients.
 
 The descriptive statistics table "Xray Descriptive Statistics" reveals that the minimum ratio of number of X-rays performed to number of patients without symptons of pneumonia is 39.6, and the maximum ratio is 133.5. We find that the mean ratio is 81.63, and the median is 82.3.
-
-The density curve fits the distribution pretty well.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # Calculate statistics for the Xray variable
@@ -323,11 +320,12 @@ hist(infection.df$Xray, freq = FALSE, # freq = FALSE for density scale on y-axis
 lines(density(infection.df$Xray), col = "blue", lwd = 2)
 ```
 
+The density curve fits the distribution pretty well.
+
+
 ### Beds
 
 The variable Beds measures the average number of beds in a hospital during study period.
-
-
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # Calculate statistics for the Beds variable
@@ -369,8 +367,6 @@ The variable MedSchool measures whether a hospital has an associated medical sch
 
 From the table "Hospitals by Medical School Affiliation" and the bar chart "Bar Chart of MedSchool", we see that a majority of hospitals do not have an associated medical school, at 84.96%. There is a small minority of hospitals that have an associated medical school, at 15.04%.
 
-The density curve fits the distribution pretty well.
-
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 counts <- table(infection.df$MedSchool)
 
@@ -391,6 +387,8 @@ barplot(table(infection.df$MedSchool),
         ylab = "Count",
         col = "gray")
 ```
+
+The density curve fits the distribution pretty well.
 
 ### Region
 
@@ -474,8 +472,6 @@ The variable Nurses measures the average number of full-time equivalent register
 
 The distribution of Nurses is skewed to the right, with outliers between the bounds of 500 and 700 people in the histogram. A peak is found to be just below the 100 average number of nurses mark.  The table "Nurses Descriptive Statistics" reveals that the minimum average number of nurses is 14, the maximum number is 656 nurses, and the mean average number of nurses is 173.25, or about 173 nurses. The median is 132 nurses. The right skewness of the histogram shows that there are few hospitals with an average number of Nurses over 500. Most of the hospitals have an average number of nurses in the range of 0 and 200, or about 173 based on the mean from the descriptive statistics. 
 
-The density curve fits the distribution pretty well.
-
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # Calculate statistics for the Nurses variable
 data  <- infection.df$Nurses
@@ -498,7 +494,6 @@ st.tbl <- data.frame(
 kable(st.tbl, digits = 2, caption = "Nurses Variable Descriptive Statistics")
 ```
 
-
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%", fig.align = "center", fig.cap = "Histogram showing distribution of Nurses Variable, with Density Curve Overlaid"}
 hist(infection.df$Nurses, freq = FALSE, # freq = FALSE for density scale on y-axis
      main = "", # turn off the title as using the fig.cap
@@ -507,13 +502,13 @@ hist(infection.df$Nurses, freq = FALSE, # freq = FALSE for density scale on y-ax
 lines(density(infection.df$Nurses), col = "blue", lwd = 2)
 ```
 
+The density curve fits the distribution pretty well.
+
 ### Facilities
 
 The variable Facilities measures the percent of 35 potential facilities and services that are provided by the hospital.
 
 The histogram of Facilities reveals a bimodal distribution, with two peaks: one peak between the bounds of 30 and 40, and another peak between the bounds of 50 and 60. This could mean that there could be two groups associated with this variable: a group of potentially rural hospitals with a lower percent of potential facilities and services, and another group of more wealthy/ middle class hospitals with a higher percent of 35 potential facilities and services at the hospital. The descriptive statistics reveal that the minimum percent of 35 potential facilities and services that are provided by the hospital is 5.7%, and the maximum percent is 80%. The mean percent is 43.16%, and the median percent is 42.9%. 
-
-The density curve fits the distribution pretty well.
 
 ```{r, echo=FALSE, fig.pos = 'H', out.width = "50%"}
 # Calculate statistics for the Facilities variable
@@ -545,6 +540,8 @@ hist(infection.df$Facilities, freq = FALSE, # freq = FALSE for density scale on 
      ylab = "Density")
 lines(density(infection.df$Facilities), col = "blue", lwd = 2)
 ```
+
+The density curve fits the distribution pretty well.
 
 # Modeling 
 
